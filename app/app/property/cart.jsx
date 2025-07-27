@@ -1,16 +1,18 @@
-import React from 'react';
-import { Heart, MapPin, Home, Bath, Square } from 'lucide-react';
+import React from "react";
+import { Heart, MapPin, Home, Bath, Square } from "lucide-react";
 
 // Sample property data for demonstration
 const sampleProperty = {
-  images: ["https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop"],
+  images: [
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop",
+  ],
   title: "Modern Family Home",
   address: "123 Oak Street, Downtown",
   price: "$485,000",
   status: "Featured",
   beds: 4,
   baths: 3,
-  sqft: "2,450 sq ft"
+  sqft: "2,450 sq ft",
 };
 
 export default function PropertyCard({ property = sampleProperty }) {
@@ -23,28 +25,32 @@ export default function PropertyCard({ property = sampleProperty }) {
           alt={property.title}
           className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        
+
         {/* Overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         {/* Status Badge */}
         <div className="absolute top-4 left-4">
           <span className="bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide shadow-lg">
             {property.status}
           </span>
         </div>
-        
+
         {/* Favorite Button */}
         <div className="absolute top-4 right-4">
           <button className="bg-white/90 hover:bg-white text-gray-700 hover:text-red-500 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110">
             <Heart className="w-4 h-4" />
           </button>
         </div>
-        
+
         {/* Price */}
         <div className="absolute bottom-4 left-4">
           <span className="bg-white/95 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg font-bold text-xl shadow-lg">
-            {property.price}
+            Rs.
+            {property.per_price >= 1000000
+              ? (property.per_price / 1000000).toFixed(1).replace(/\.0$/, "") +
+                "M"
+              : property.per_price.toLocaleString()}
           </span>
         </div>
       </div>
@@ -57,7 +63,7 @@ export default function PropertyCard({ property = sampleProperty }) {
           </h3>
           <div className="flex items-center text-gray-600 mb-4">
             <MapPin className="w-4 h-4 mr-1 text-gray-400" />
-            <p className="text-sm">{property.address}</p>
+            <p className="text-sm">{property.location}</p>
           </div>
         </div>
 
@@ -65,27 +71,12 @@ export default function PropertyCard({ property = sampleProperty }) {
         <div className="flex items-center justify-between text-gray-600 mb-4 pb-4 border-b border-gray-100">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
-              <Home className="w-4 h-4 text-gray-400" />
-              <span className="text-sm">
+              <span className="text-sm font-semibold">
                 <span className="font-semibold text-gray-900">
-                  {property.beds}
+                  {property.description.split(" ").slice(0, 40).join(" ")}
+                  {property.description.split(" ").length > 40 ? "..." : ""}
                 </span>{" "}
-                Beds
-              </span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Bath className="w-4 h-4 text-gray-400" />
-              <span className="text-sm">
-                <span className="font-semibold text-gray-900">
-                  {property.baths}
-                </span>{" "}
-                Baths
-              </span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Square className="w-4 h-4 text-gray-400" />
-              <span className="text-sm font-semibold text-gray-900">
-                {property.sqft}
+                see more
               </span>
             </div>
           </div>

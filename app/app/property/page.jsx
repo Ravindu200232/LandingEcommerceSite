@@ -4,23 +4,36 @@ import Footer7 from "@/components/footer7";
 import { Navbar5 } from "@/components/navbar5";
 import React, { useState } from "react";
 import Cart from "./cart";
-import { priceRange, uniqueCity } from "@/lib/filterData";
+import {
+  perchPriceRange,
+  perchSizeRange,
+  priceRange,
+  uniqueCity,
+} from "@/lib/filterData";
 import PropertyTypeSelector from "@/components/PropertyTypeSelector";
 import SearchComponent from "@/components/searchComponenet";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  checkPerchPriceMax,
+  checkPerchPriceMin,
+  checkPerchSizeMax,
+  checkPerchSizeMin,
+  checkPriceRangerMax,
+  checkPriceRangerMin,
+} from "@/lib/Range";
 
 const property = [
   {
     id: 1,
     title: "10 Perches Bare Land for Sale in Kiribathgoda",
-    price: "Rs. 1.55M",
-    totalPrice: "Rs. 15.5M",
+    per_price: 250000.0,
+    totalPrice: 1200000.0,
     location: "Gonawala, Kiribathgoda",
     city: "Malabe",
     district: "Kiribathgoda",
     type: "Land",
-    size: "10 Perches",
+    size: 20,
     description:
       "This great value property, in a highly residential area, awaits its new owner.",
     features: ["Highly residential area", "Few minutes to town", "Clear deed"],
@@ -30,102 +43,70 @@ const property = [
   },
   {
     id: 2,
-    title: "Luxury 4BR House in Malabe",
-    price: "Rs. 45M",
-    totalPrice: "Rs. 45M",
-    location: "Malabe, Colombo",
-    city: "Malabe",
+    title: "Luxury Apartment for Sale in Colombo 07",
+    per_price: 1500000.0,
+    totalPrice: 30000000.0,
+    location: "Ward Place, Colombo 07",
+    city: "Colombo",
     district: "Colombo",
-    type: "House",
-    size: "15 Perches",
+    type: "Apartment",
+    size: 15,
     description:
-      "Modern two-story luxury house with landscaped garden and garage.",
-    features: ["4 Bedrooms", "3 Bathrooms", "Garden", "Garage for 2 cars"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
+      "Modern luxury apartment in the heart of the city, near top schools and hospitals.",
+    features: ["24/7 Security", "Swimming Pool", "Covered Parking"],
+    images: ["apartment1.jpg", "apartment2.jpg"],
     listedDate: "2025-07-20",
     status: "Available",
   },
   {
     id: 3,
-    title: "6 Acre Agricultural Land in Matale",
-    price: "Rs. 250,000 Per Acre",
-    totalPrice: "Rs. 1.5M",
-    location: "Ukuwela, Matale",
-    city: "Ukuwela",
-    district: "Matale",
-    type: "Agricultural",
-    size: "6 Acres",
-    description: "Ideal for farming, with direct road access and water supply.",
-    features: ["Road Access", "Water Supply", "Fertile Soil"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
-    listedDate: "2025-07-10",
-    status: "Available",
-  },
-  {
-    id: 4,
-    title: "Commercial Building in Kandy Town",
-    price: "Rs. 120M",
-    totalPrice: "Rs. 120M",
-    location: "Kandy Town",
-    city: "Kandy Town",
+    title: "2-Story House for Sale in Kandy",
+    per_price: 500000.0,
+    totalPrice: 15000000.0,
+    location: "Peradeniya Road, Kandy",
+    city: "Kandy",
     district: "Kandy",
-    type: "Commercial",
-    size: "4,000 sqft",
+    type: "House",
+    size: 25,
     description:
-      "3-floor commercial building ideal for retail or office space.",
-    features: ["Main Road Frontage", "Parking", "Electricity & Water"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
+      "Spacious family house with beautiful mountain views and garden space.",
+    features: ["Garage", "Garden", "Balcony View"],
+    images: ["house1.jpg", "house2.jpg"],
     listedDate: "2025-07-18",
     status: "Available",
   },
   {
-    id: 5,
-    title: "15 Perches Land with House in Galle",
-    price: "Rs. 12M",
-    totalPrice: "Rs. 12M",
-    location: "Galle City",
-    city: "Galle City",
+    id: 4,
+    title: "Commercial Land for Sale in Galle Town",
+    per_price: 800000.0,
+    totalPrice: 6400000.0,
+    location: "Main Street, Galle",
+    city: "Galle",
     district: "Galle",
-    type: "Land_House",
-    size: "15 Perches",
+    type: "Commercial",
+    size: 8,
     description:
-      "Old house on valuable land, close to Galle Fort and town center.",
-    features: ["Close to Galle Fort", "Water/Electricity", "Residential Zone"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
+      "Prime commercial land ideal for showroom or office space near city center.",
+    features: ["Main road access", "High visibility", "Ideal for business"],
+    images: ["comm1.jpg", "comm2.jpg"],
     listedDate: "2025-07-15",
     status: "Available",
   },
   {
-    id: 6,
-    title: "Luxury Apartment in Colombo 07",
-    price: "Rs. 75M",
-    totalPrice: "Rs. 75M",
-    location: "Colombo 07",
-    city: "colombo_07",
-    district: "Colombo",
-    type: "Apartment",
-    size: "2,300 sqft",
-    description: "Modern apartment with city view, gym, and pool access.",
-    features: ["3 Bedrooms", "Swimming Pool", "Gym", "24/7 Security"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
-    listedDate: "2025-07-12",
-    status: "Available",
-  },
-  {
-    id: 7,
-    title: "20 Perches Lake View Land in Nuwara Eliya",
-    price: "Rs. 900,000 Per Perch",
-    totalPrice: "Rs. 18M",
-    location: "Lake Road, Nuwara Eliya",
-    city: "Lake Road",
-    district: "Nuwara Eliya",
-    type: "Land",
-    size: "20 Perches",
+    id: 5,
+    title: "Agricultural Land for Sale in Anuradhapura",
+    per_price: 150000.0,
+    totalPrice: 3000000.0,
+    location: "Mihintale, Anuradhapura",
+    city: "Anuradhapura",
+    district: "Anuradhapura",
+    type: "Agriculture",
+    size: 20,
     description:
-      "Scenic land overlooking the lake, ideal for holiday bungalow.",
-    features: ["Lake View", "Calm Environment", "Close to Town"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
-    listedDate: "2025-07-22",
+      "Fertile land suitable for paddy or vegetables, with irrigation access.",
+    features: ["Water source", "Fertile soil", "Easy access road"],
+    images: ["agri1.jpg", "agri2.jpg"],
+    listedDate: "2025-07-10",
     status: "Available",
   },
 ];
@@ -136,27 +117,72 @@ export default function Page() {
   const [ptype, setPtype] = useState("all");
   const [lType, setLtype] = useState("all");
   const [priceType, setPriceType] = useState("all");
-  const [sizeType, setSizeType] = useState("all");
-  const [sorttype, setSorttype] = useState("all");
+  const [perPrice, setperPrice] = useState("all");
+  const [preces, setpreces] = useState("all");
+  const [search, setSearch] = useState("");
 
-  const [filterType,setFilterType] = useState("all");
-  const [filterLocation,setFilterLocation] = useState("all");
+  const [filterType, setFilterType] = useState("all");
+  const [filterLocation, setFilterLocation] = useState("all");
+  const [filterPrice, setFilterPrice] = useState("all");
+  const [FilterperPrice, setFilterperPrice] = useState("all");
+  const [filterSize, setFilterSize] = useState("all");
 
-
-
-  const handleFilter = ()=>{
-
+  const handleFilter = () => {
     setFilterType(ptype);
     setFilterLocation(lType);
-  }
+    setFilterPrice(priceType);
+    setFilterperPrice(perPrice);
+    setFilterSize(preces);
+  };
 
-    const filteredProperties = properties.filter((property)=>{
-      const propertyTypeMatch = filterType === "all" || property.type.toLowerCase() === filterType.toLowerCase() ;
-      const locationMatch = filterLocation === "all" || property.city.toLowerCase()  === filterLocation.toLowerCase() ;
-      console.log(property.type.toLowerCase())
-      return propertyTypeMatch && locationMatch
-    })
+  const filteredProperties = properties.filter((property) => {
+    //search bar filter
+    const query = search.toLowerCase();
 
+    const matchSearch =
+      property.title.toLowerCase().includes(query) ||
+      property.city.toLowerCase().includes(query) ||
+      property.description.toLowerCase().includes(query) ||
+      property.location.toLowerCase().includes(query);
+      
+
+    // property type
+    const propertyTypeMatch =
+      filterType === "all" ||
+      property.type.toLowerCase() === filterType.toLowerCase();
+
+    const locationMatch =
+      filterLocation === "all" ||
+      property.city.toLowerCase() === filterLocation.toLowerCase();
+
+    // Price Range (total price)
+    const priceRangeMatch =
+      filterPrice === "all" ||
+      (property.totalPrice >= checkPriceRangerMin(filterPrice) &&
+        property.totalPrice < checkPriceRangerMax(filterPrice));
+
+    // Per Price Range
+    const perpriceRangeMatch =
+      FilterperPrice === "all" ||
+      (property.per_price >= checkPerchPriceMin(FilterperPrice) &&
+        property.per_price < checkPerchPriceMax(FilterperPrice));
+
+    // Size Range (in perches)
+    const sizeMatch =
+      filterSize === "all" ||
+      (property.size >= checkPerchSizeMin(filterSize) &&
+        property.size < checkPerchSizeMax(filterSize));
+
+    // Combine all conditions
+    return (
+      matchSearch &&
+      propertyTypeMatch &&
+      locationMatch &&
+      priceRangeMatch &&
+      perpriceRangeMatch &&
+      sizeMatch
+    );
+  });
 
   return (
     <div className=" min-w-full h-full">
@@ -172,7 +198,7 @@ export default function Page() {
             <input
               type="text"
               placeholder="Search listings..."
-              onChange={(e) => handleMovieSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               className="w-full h-10 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
             />
           </div>
@@ -192,7 +218,7 @@ export default function Page() {
               id="type"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => {
-                setPtype(e.target.value)
+                setPtype(e.target.value);
               }}
             >
               <option value="" disabled>
@@ -204,7 +230,6 @@ export default function Page() {
               <option value="agricultural">Agricultural</option>
               <option value="commercial">Commercial</option>
               <option value="apartment">Apartment</option>
-              
             </select>
           </div>
 
@@ -220,7 +245,7 @@ export default function Page() {
               id="location"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => {
-                setLtype(e.target.value)
+                setLtype(e.target.value);
               }}
             >
               {uniqueCity.map((city) => (
@@ -242,10 +267,13 @@ export default function Page() {
             <select
               id="price"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e)=>{
-                setPriceType(e.target.value)
+              onChange={(e) => {
+                setPriceType(e.target.value);
               }}
             >
+              <option value="" disabled>
+                Select price
+              </option>
               {priceRange.map((price) => (
                 <option key={price.value} value={price.value}>
                   {price.label}
@@ -254,71 +282,61 @@ export default function Page() {
             </select>
           </div>
 
-          {/* Bedrooms */}
+          {/* perches price */}
           <div>
             <label
-              htmlFor="bedrooms"
+              htmlFor="per_price"
               className="block mb-1 font-medium text-gray-700"
             >
-              Bedrooms
+              Per Perches Price
             </label>
             <select
-              id="bedrooms"
+              id="perchesPrice"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => {
+                setperPrice(e.target.value);
+              }}
             >
               <option value="" disabled>
-                Select bedrooms
+                Select price
               </option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
+              {perchPriceRange.map((price) => (
+                <option key={price.value} value={price.value}>
+                  {price.label}
+                </option>
+              ))}
             </select>
           </div>
 
-          {/* Bathrooms */}
+          {/* size */}
           <div>
             <label
-              htmlFor="bathrooms"
+              htmlFor="size"
               className="block mb-1 font-medium text-gray-700"
             >
-              Bathrooms
+              Size(Perches)
             </label>
             <select
-              id="bathrooms"
+              id="size"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => {
+                setpreces(e.target.value);
+              }}
             >
               <option value="" disabled>
-                Select bathrooms
+                Select No Of per
               </option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-            </select>
-          </div>
-
-          {/* Sort By */}
-          <div>
-            <label
-              htmlFor="sortBy"
-              className="block mb-1 font-medium text-gray-700"
-            >
-              Sort By
-            </label>
-            <select
-              id="sortBy"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="" disabled>
-                Sort listings
-              </option>
-              <option value="newest">Newest</option>
-              <option value="priceLow">Price: Low to High</option>
-              <option value="priceHigh">Price: High to Low</option>
+              {perchSizeRange.map((size) => (
+                <option key={size.value} value={size.value}>
+                  {size.label}
+                </option>
+              ))}
             </select>
           </div>
 
           {/* filter button */}
-           <div>
+          <div className="mt-8">
             <Button onClick={handleFilter}>Filter</Button>
-           
           </div>
         </div>
       </div>

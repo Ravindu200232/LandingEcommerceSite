@@ -52,6 +52,7 @@ export const uniqueCity = [
 ];
 
 export const priceRange = [
+   { value: "all", label: "All" },
   {
     label: "Below LKR 1 Million",
     value: "below-1M",
@@ -89,3 +90,88 @@ export const priceRange = [
     max: Infinity,
   },
 ];
+
+
+
+
+export const perchPriceRange = [
+   { value: "all", label: "All" },
+  {
+    label: "Below LKR 100,000 per perch",
+    value: "below-100K",
+    min: 0,
+    max: 100000,
+  },
+  {
+    label: "LKR 100K - 250K per perch",
+    value: "100K-250K",
+    min: 100000,
+    max: 250000,
+  },
+  {
+    label: "LKR 250K - 500K per perch",
+    value: "250K-500K",
+    min: 250000,
+    max: 500000,
+  },
+  {
+    label: "LKR 500K - 1M per perch",
+    value: "500K-1M",
+    min: 500000,
+    max: 1000000,
+  },
+  {
+    label: "LKR 1M - 2M per perch",
+    value: "1M-2M",
+    min: 1000000,
+    max: 2000000,
+  },
+  {
+    label: "Above LKR 2M per perch",
+    value: "above-2M",
+    min: 2000000,
+    max: Infinity,
+  },
+];
+
+
+export const perchSizeRange = [
+   { value: "all", label: "All" },
+  {
+    label: "Below 5 Perches",
+    value: "below-5",
+    min: 0,
+    max: 5,
+  },
+  {
+    label: "5 - 10 Perches",
+    value: "5-10",
+    min: 5,
+    max: 10,
+  },
+  {
+    label: "10 - 15 Perches",
+    value: "10-15",
+    min: 10,
+    max: 15,
+  },
+  {
+    label: "15 - 20 Perches",
+    value: "15-20",
+    min: 15,
+    max: 20,
+  },
+  {
+    label: "20 - 30 Perches",
+    value: "20-30",
+    min: 20,
+    max: 30,
+  },
+  {
+    label: "Above 30 Perches",
+    value: "above-30",
+    min: 30,
+    max: Infinity,
+  },
+];
+
