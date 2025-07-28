@@ -1,5 +1,7 @@
 import React from "react";
 import { Heart, MapPin, Home, Bath, Square } from "lucide-react";
+import Link from "next/link";
+
 
 // Sample property data for demonstration
 const sampleProperty = {
@@ -87,9 +89,11 @@ export default function PropertyCard({ property = sampleProperty }) {
           <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
             For Sale
           </span>
+          <Link href={`property/${property.id}`}>
           <button className="bg-primary hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 hover:shadow-md">
             View Details
           </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import Footer7 from "@/components/footer7";
 import { Navbar5 } from "@/components/navbar5";
 import React, { useState } from "react";
-import Cart from "./cart";
+import Cart from "../../components/cart";
 import {
   perchPriceRange,
   perchSizeRange,
@@ -22,6 +22,16 @@ import {
   checkPriceRangerMax,
   checkPriceRangerMin,
 } from "@/lib/Range";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const property = [
   {
@@ -127,6 +137,9 @@ export default function Page() {
   const [FilterperPrice, setFilterperPrice] = useState("all");
   const [filterSize, setFilterSize] = useState("all");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
+
   const handleFilter = () => {
     setFilterType(ptype);
     setFilterLocation(lType);
@@ -144,7 +157,6 @@ export default function Page() {
       property.city.toLowerCase().includes(query) ||
       property.description.toLowerCase().includes(query) ||
       property.location.toLowerCase().includes(query);
-      
 
     // property type
     const propertyTypeMatch =
@@ -184,172 +196,238 @@ export default function Page() {
     );
   });
 
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedItems = filteredProperties.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className=" min-w-full h-full">
-      <div className="   shadow-xl ">
+      <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
         <Navbar5 />
       </div>
 
-      <div className="w-full px-4 py-6 flex flex-col items-center">
-        {/* Search Bar */}
-        <div className="w-full max-w-4xl mb-4">
-          <div className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm px-3 py-2 space-x-2">
-            <Search className="h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search listings..."
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full h-10 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
-            />
+      <div className="pt-20">
+        <div className="w-full px-4 py-6 flex flex-col items-center">
+          {/* Search Bar */}
+          <div className="w-full max-w-4xl mb-4">
+            <div className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm px-3 py-2 space-x-2">
+              <Search className="h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search listings..."
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full h-10 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
+              />
+            </div>
+          </div>
+
+          {/* Filters */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
+            {/* Property Type */}
+            <div>
+              <label
+                htmlFor="type"
+                className="block mb-1 font-medium text-gray-700"
+              >
+                Property Type
+              </label>
+              <select
+                id="type"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  setPtype(e.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select property type
+                </option>
+                <option value="all">All</option>
+                <option value="land">Land</option>
+                <option value="house">House</option>
+                <option value="agricultural">Agricultural</option>
+                <option value="commercial">Commercial</option>
+                <option value="apartment">Apartment</option>
+              </select>
+            </div>
+
+            {/* Location */}
+            <div>
+              <label
+                htmlFor="location"
+                className="block mb-1 font-medium text-gray-700"
+              >
+                Location
+              </label>
+              <select
+                id="location"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  setLtype(e.target.value);
+                }}
+              >
+                {uniqueCity.map((city) => (
+                  <option key={city.value} value={city.value}>
+                    {city.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Price Range */}
+            <div>
+              <label
+                htmlFor="price"
+                className="block mb-1 font-medium text-gray-700"
+              >
+                Price Range
+              </label>
+              <select
+                id="price"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  setPriceType(e.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select price
+                </option>
+                {priceRange.map((price) => (
+                  <option key={price.value} value={price.value}>
+                    {price.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* perches price */}
+            <div>
+              <label
+                htmlFor="per_price"
+                className="block mb-1 font-medium text-gray-700"
+              >
+                Per Perches Price
+              </label>
+              <select
+                id="perchesPrice"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  setperPrice(e.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select price
+                </option>
+                {perchPriceRange.map((price) => (
+                  <option key={price.value} value={price.value}>
+                    {price.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* size */}
+            <div>
+              <label
+                htmlFor="size"
+                className="block mb-1 font-medium text-gray-700"
+              >
+                Size(Perches)
+              </label>
+              <select
+                id="size"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  setpreces(e.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select No Of per
+                </option>
+                {perchSizeRange.map((size) => (
+                  <option key={size.value} value={size.value}>
+                    {size.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* filter button */}
+            <div className="mt-8">
+              <Button onClick={handleFilter}>Filter</Button>
+            </div>
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
-          {/* Property Type */}
-          <div>
-            <label
-              htmlFor="type"
-              className="block mb-1 font-medium text-gray-700"
-            >
-              Property Type
-            </label>
-            <select
-              id="type"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => {
-                setPtype(e.target.value);
-              }}
-            >
-              <option value="" disabled>
-                Select property type
-              </option>
-              <option value="all">All</option>
-              <option value="land">Land</option>
-              <option value="house">House</option>
-              <option value="agricultural">Agricultural</option>
-              <option value="commercial">Commercial</option>
-              <option value="apartment">Apartment</option>
-            </select>
-          </div>
-
-          {/* Location */}
-          <div>
-            <label
-              htmlFor="location"
-              className="block mb-1 font-medium text-gray-700"
-            >
-              Location
-            </label>
-            <select
-              id="location"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => {
-                setLtype(e.target.value);
-              }}
-            >
-              {uniqueCity.map((city) => (
-                <option key={city.value} value={city.value}>
-                  {city.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Price Range */}
-          <div>
-            <label
-              htmlFor="price"
-              className="block mb-1 font-medium text-gray-700"
-            >
-              Price Range
-            </label>
-            <select
-              id="price"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => {
-                setPriceType(e.target.value);
-              }}
-            >
-              <option value="" disabled>
-                Select price
-              </option>
-              {priceRange.map((price) => (
-                <option key={price.value} value={price.value}>
-                  {price.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* perches price */}
-          <div>
-            <label
-              htmlFor="per_price"
-              className="block mb-1 font-medium text-gray-700"
-            >
-              Per Perches Price
-            </label>
-            <select
-              id="perchesPrice"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => {
-                setperPrice(e.target.value);
-              }}
-            >
-              <option value="" disabled>
-                Select price
-              </option>
-              {perchPriceRange.map((price) => (
-                <option key={price.value} value={price.value}>
-                  {price.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* size */}
-          <div>
-            <label
-              htmlFor="size"
-              className="block mb-1 font-medium text-gray-700"
-            >
-              Size(Perches)
-            </label>
-            <select
-              id="size"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => {
-                setpreces(e.target.value);
-              }}
-            >
-              <option value="" disabled>
-                Select No Of per
-              </option>
-              {perchSizeRange.map((size) => (
-                <option key={size.value} value={size.value}>
-                  {size.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* filter button */}
-          <div className="mt-8">
-            <Button onClick={handleFilter}>Filter</Button>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 m-10">
+          {paginatedItems.map((property) => (
+            <div key={property.id}>
+              <Cart property={property} />
+            </div>
+          ))}
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 m-10">
-        {filteredProperties.map((property) => (
-          <div key={property.id}>
-            <Cart property={property} />
-          </div>
-        ))}
-      </div>
+        {totalPages > 1 && (
+          <Pagination className="mt-6 flex justify-center">
+            <PaginationContent className="flex items-center space-x-2">
+              {/* Previous Button */}
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                      goToPage(currentPage - 1);
+                    }
+                  }}
+                />
+              </PaginationItem>
 
-      <Footer7 />
+              {/* Numbered Pages */}
+              {Array.from({ length: totalPages }, (_, index) => {
+                const page = index + 1;
+                return (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      href="#"
+                      isActive={currentPage === page}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        goToPage(page);
+                      }}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              })}
+
+              {/* Next Button */}
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage < totalPages) {
+                      goToPage(currentPage + 1);
+                    }
+                  }}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
+
+        <Footer7 />
+      </div>
     </div>
   );
 }
