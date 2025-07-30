@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
@@ -112,7 +113,7 @@ const PropertyNavbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="#" className="flex items-center space-x-2">
+            <Link href="#" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
@@ -125,19 +126,19 @@ const PropertyNavbar = () => {
               <span className="text-xl font-bold text-gray-900">
                 PropEstate
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium px-3 py-2 rounded-md hover:bg-gray-50"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
 
             {/* Properties Dropdown */}
@@ -170,7 +171,7 @@ const PropertyNavbar = () => {
                 <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {propertyTypes.map((type) => (
-                      <a
+                      <Link
                         key={type.name}
                         href={type.href}
                         className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200"
@@ -180,7 +181,7 @@ const PropertyNavbar = () => {
                         <div className="text-xs text-gray-500 mt-1">
                           {type.description}
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -239,7 +240,7 @@ const PropertyNavbar = () => {
                         </p>
                       </div>
 
-                      <a
+                      <Link
                         href="#"
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                       >
@@ -257,9 +258,9 @@ const PropertyNavbar = () => {
                           />
                         </svg>
                         Profile Details
-                      </a>
+                      </Link>
 
-                      <a
+                      <Link
                         href="#"
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                       >
@@ -277,9 +278,9 @@ const PropertyNavbar = () => {
                           />
                         </svg>
                         Update Email
-                      </a>
+                      </Link>
 
-                      <a
+                      <Link
                         href="#"
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                       >
@@ -297,7 +298,7 @@ const PropertyNavbar = () => {
                           />
                         </svg>
                         Change Password
-                      </a>
+                      </Link>
 
                       <div className="border-t border-gray-100">
                         <button

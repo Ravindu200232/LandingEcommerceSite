@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { signIn } from "@/lib/auth-client";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -201,7 +202,7 @@ export default function LoginForm() {
               <Home className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">LandVista</h1>
+              <h1 className="text-2xl font-bold text-gray-900">PropEstate</h1>
               <p className="text-sm text-gray-600">
                 Premium Property Solutions
               </p>
@@ -355,12 +356,12 @@ export default function LoginForm() {
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Don't have an account?{" "}
-              <a
-                href="#"
+              <Link
+                href="/signup"
                 className="font-medium text-green-600 hover:text-green-500 transition-colors"
               >
                 Create your account
-              </a>
+              </Link>
             </p>
           </div>
 

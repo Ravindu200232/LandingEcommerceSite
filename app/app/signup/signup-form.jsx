@@ -19,6 +19,7 @@ import {
 import { signUp } from "@/lib/auth-client";
 import { ToastContainer, toast } from 'react-toastify';
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function SignupForm() {
 
@@ -105,7 +106,7 @@ export default function SignupForm() {
               <Home className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">LandVista</h1>
+              <h1 className="text-2xl font-bold">PropEstate</h1>
               <p className="text-sm text-white/80">
                 Premium Property Solutions
               </p>
@@ -264,12 +265,12 @@ export default function SignupForm() {
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Already have an account?{" "}
-              <a
+              <Link
                 href="/login"
                 className="font-medium text-green-600 hover:text-green-500"
               >
                 Sign In
-              </a>
+              </Link>
             </p>
           </div>
         </div>
