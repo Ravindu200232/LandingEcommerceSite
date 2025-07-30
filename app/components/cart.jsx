@@ -34,7 +34,7 @@ export default function PropertyCard({ property = sampleProperty }) {
         {/* Status Badge */}
         <div className="absolute top-4 left-4">
           <span className="bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide shadow-lg">
-            {property.status}
+            {property.type}
           </span>
         </div>
 
@@ -49,10 +49,10 @@ export default function PropertyCard({ property = sampleProperty }) {
         <div className="absolute bottom-4 left-4">
           <span className="bg-white/95 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg font-bold text-xl shadow-lg">
             Rs.
-            {property.perprice >= 1000000
-              ? (property.perprice / 1000000).toFixed(1).replace(/\.0$/, "") +
+            {property.perPrice >= 1000000
+              ? (property.perPrice / 1000000).toFixed(1).replace(/\.0$/, "") +
                 "M"
-              : property.perprice}
+              : property.perPrice}
           </span>
         </div>
       </div>
@@ -75,8 +75,8 @@ export default function PropertyCard({ property = sampleProperty }) {
             <div className="flex items-center space-x-1">
               <span className="text-sm font-semibold">
                 <span className="font-semibold text-gray-900">
-                  {property.description.split(" ").slice(0, 40).join(" ")}
-                  {property.description.split(" ").length > 40 ? "..." : ""}
+                  {property.description.split(" ").slice(0, 15).join(" ")}
+                  {property.description.split(" ").length > 15 ? "..." : ""}
                 </span>{" "}
                 see more
               </span>

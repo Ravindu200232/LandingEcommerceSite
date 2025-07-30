@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,12 +8,13 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 const Option = ({
   heading = "Explore Land Options",
   description = "Find the perfect land solution—whether you're buying, selling, or renting. We offer a secure and streamlined experience tailored for you.",
   buttonText = "View all listings",
-  buttonUrl = "https://govimithuru.lk",
+  buttonUrl = "/",
 
   posts = [
     {
@@ -23,8 +24,8 @@ const Option = ({
       label: "Buy",
       author: "Govimithuru.lk",
       published: "1 Aug 2025",
-      url: "https://govimithuru.lk/buy-land",
-      image: "/img/land-buy.jpg",
+      url: "/property",
+      image: "/img/buy.png",
     },
     {
       id: "land-sell",
@@ -33,8 +34,8 @@ const Option = ({
       label: "Sell",
       author: "Govimithuru.lk",
       published: "1 Aug 2025",
-      url: "https://govimithuru.lk/sell-land",
-      image: "/img/land-sell.jpg",
+      url: "/addProperty",
+      image: "/img/sell.png",
     },
     {
       id: "land-rent",
@@ -43,8 +44,8 @@ const Option = ({
       label: "Rent",
       author: "Govimithuru.lk",
       published: "1 Aug 2025",
-      url: "https://govimithuru.lk/rent-land",
-      image: "/img/land-rent.jpg",
+      url: "/",
+      image: "/img/rent.png",
     },
   ]
 }) => {
@@ -59,17 +60,17 @@ const Option = ({
             {description}
           </p>
           <Button variant="link" className="w-full sm:w-auto" asChild>
-            <a href={buttonUrl} target="_blank">
+            <Link href={buttonUrl} target="_blank">
               {buttonText}
               <ArrowRight className="ml-2 size-4" />
-            </a>
+            </Link>
           </Button>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {posts.map((post) => (
             <Card key={post.id} className="grid w-[350px] border-none shadow-xl grid-rows-[auto_auto_1fr_auto] pt-0">
               <div className="aspect-16/9 w-full">
-                <a
+                <Link
                   href={post.url}
                   target="_blank"
                   className="transition-opacity items-center justify-center flex duration-200 fade-in hover:opacity-70">
@@ -77,13 +78,13 @@ const Option = ({
                     src={post.image}
                     alt={post.title}
                     className="h-[200px] w-[200px] object-cover object-center" />
-                </a>
+                </Link>
               </div>
               <CardHeader>
                 <h3 className="text-lg font-semibold hover:underline md:text-xl">
-                  <a href={post.url} target="_blank">
+                  <Link href={post.url} target="_blank">
                     {post.title}
-                  </a>
+                  </Link>
                 </h3>
               </CardHeader>
               <CardContent>

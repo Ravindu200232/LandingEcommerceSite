@@ -15,7 +15,7 @@ const data = [
     title: "Land for Sale in Colombo",
     description:
       "Prime residential land located in Colombo city, ideal for building your dream home or investment property.",
-    href: "https://example.com/colombo-land",
+    href: "/property",
     image:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyM3x8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Colombo skyline-ish
   },
@@ -24,7 +24,7 @@ const data = [
     title: "Land Plot Near Kandy Lake",
     description:
       "Beautiful hillside land plot near Kandy Lake, perfect for peaceful living surrounded by nature.",
-    href: "https://example.com/kandy-land",
+    href: "/property",
     image:
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyNHx8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Hills/nature around Kandy
   },
@@ -33,7 +33,7 @@ const data = [
     title: "Seaside Land in Galle",
     description:
       "Coastal land available in Galle, ideal for vacation homes or boutique resorts with stunning ocean views.",
-    href: "https://example.com/galle-land",
+    href: "/property",
     image:
       "https://images.unsplash.com/photo-1500534623283-312aade485b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyNXx8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Galle coastline
   },
@@ -42,16 +42,16 @@ const data = [
     title: "Cool Hill Country Land in Nuwara Eliya",
     description:
       "Experience the cool climate and lush greenery with this land plot in the picturesque Nuwara Eliya region.",
-    href: "https://example.com/nuwara-eliya-land",
+    href: "/property",
     image:
-      "https://images.unsplash.com/photo-1501761095870-5a9a9d31b54d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyNnx8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Hill country tea fields
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRykMtH8o5HeOQH6jaBTtg1YS1su3dUk2GRXw&s", // Hill country tea fields
   },
   {
     id: "negombo-land",
     title: "Land Near Negombo Lagoon",
     description:
       "Strategically located land near Negombo lagoon, great for commercial or residential development.",
-    href: "https://example.com/negombo-land",
+    href: "/property",
     image:
       "https://images.unsplash.com/photo-1494526585095-c41746248156?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyN3x8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Lagoon or beach
   },

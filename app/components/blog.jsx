@@ -8,7 +8,7 @@ export default function Blog() {
       category: "Apartment",
       date: "Feb 03",
       title: "Top Neighborhoods to Live in Colombo for Families",
-      image: "https://images.unsplash.com/photo-1598300052677-c39f22a24ff6?auto=format&fit=crop&w=800&q=80" // Colombo cityscape
+      image: "https://lh5.googleusercontent.com/proxy/3blR4GXcsLJEoLZEkLXkFEMwtF6VqS1G2bULEz3p-PZRxsHQ-KyUdy2qughWisejpiHMFBwBwiUv0FEggCw3oH4S73jc-m76nSYjKLU-KtPgspfY3XKH3M40SWV6FdPnBxotqVfFhjg" // Colombo cityscape
     },
     {
       id: 2,
@@ -28,10 +28,6 @@ export default function Blog() {
 
   const brands = [
     { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-    { name: "AMD", logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/AMD_logo.svg" },
-    { name: "Cisco", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Cisco_logo.svg" },
-    { name: "Dropcam", logo: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Dropcam_Logo.svg" },
-    { name: "Logitech", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Logitech_logo.svg" },
     { name: "Spotify", logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" }
   ];
 
@@ -147,7 +143,7 @@ export default function Blog() {
                 className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full font-medium transition-colors duration-200 flex items-center justify-center"
               >
                 <Phone className="mr-2 w-4 h-4" />
-                +94 77 123 4567
+                +94 78 984 0996
               </a>
             </div>
           </div>

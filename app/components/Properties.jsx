@@ -102,7 +102,7 @@ export default function Properties({ properties }) {
             .filter((property) => property.popular == true)
             .map((property) => (
               <div
-                key={property.id}
+                key={property._id}
                 className="bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-750 transition-colors duration-300 group"
               >
                 {/* Property Image */}

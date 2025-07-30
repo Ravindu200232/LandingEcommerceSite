@@ -11,7 +11,7 @@ export default function HomeReviews() {
       author: {
         name: "Kasun Perera",
         role: "Entrepreneur",
-        avatar: "/api/placeholder/50/50"
+        avatar: "/img/agent1.jpg"
       }
     },
     {
@@ -22,7 +22,7 @@ export default function HomeReviews() {
       author: {
         name: "Nimali Silva",
         role: "Designer",
-        avatar: "/api/placeholder/50/50"
+      avatar: "/img/agent2.jpg"
       }
     },
     {
@@ -33,7 +33,7 @@ export default function HomeReviews() {
       author: {
         name: "Ruwan Jayasinghe",
         role: "Developer",
-        avatar: "/api/placeholder/50/50"
+      avatar: "/img/agent3.jpg"
       }
     },
     {
@@ -44,7 +44,7 @@ export default function HomeReviews() {
       author: {
         name: "Anusha Fernando",
         role: "Marketing Specialist",
-        avatar: "/api/placeholder/50/50"
+        avatar: "/img/agent4.jpg"
       }
     }
   ];
