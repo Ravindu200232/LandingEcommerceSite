@@ -49,10 +49,10 @@ export default function PropertyCard({ property = sampleProperty }) {
         <div className="absolute bottom-4 left-4">
           <span className="bg-white/95 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg font-bold text-xl shadow-lg">
             Rs.
-            {property.per_price >= 1000000
-              ? (property.per_price / 1000000).toFixed(1).replace(/\.0$/, "") +
+            {property.perprice >= 1000000
+              ? (property.perprice / 1000000).toFixed(1).replace(/\.0$/, "") +
                 "M"
-              : property.per_price.toLocaleString()}
+              : property.perprice}
           </span>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function PropertyCard({ property = sampleProperty }) {
           <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
             For Sale
           </span>
-          <Link href={`property/${property.id}`}>
+          <Link href={`property/${property._id}`}>
           <button className="bg-primary hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 hover:shadow-md">
             View Details
           </button>

@@ -5,34 +5,34 @@ export default function Blog() {
   const blogPosts = [
     {
       id: 1,
-      category: "Townhome",
+      category: "Apartment",
       date: "Feb 03",
-      title: "Unveils the Best Canadian Cities for Biking and Walk",
-      image: "/img/poster2.jpg"
+      title: "Top Neighborhoods to Live in Colombo for Families",
+      image: "https://images.unsplash.com/photo-1598300052677-c39f22a24ff6?auto=format&fit=crop&w=800&q=80" // Colombo cityscape
     },
     {
       id: 2,
       category: "Villa",
       date: "Feb 03",
-      title: "Diamond Manor Apartment in the New York and Service",
-      image: "/img/feature2.jpg"
+      title: "How to Choose the Perfect Holiday Home in Galle",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" // Villa or seaside house
     },
     {
       id: 3,
       category: "Townhome",
       date: "Feb 03",
-      title: "7 Simple Ways to Keep Your Kids' Toys From Taking Over Your Home",
-      image: "/img/feature3.jpg"
+      title: "Tips for Maintaining Your Property in the Hill Country",
+      image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80" // Hill country house
     }
   ];
 
   const brands = [
-    { name: "Amazon", logo: "/api/placeholder/120/40" },
-    { name: "AMD", logo: "/api/placeholder/120/40" },
-    { name: "Cisco", logo: "/api/placeholder/120/40" },
-    { name: "Dropcam", logo: "/api/placeholder/120/40" },
-    { name: "Logitech", logo: "/api/placeholder/120/40" },
-    { name: "Spotify", logo: "/api/placeholder/120/40" }
+    { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+    { name: "AMD", logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/AMD_logo.svg" },
+    { name: "Cisco", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Cisco_logo.svg" },
+    { name: "Dropcam", logo: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Dropcam_Logo.svg" },
+    { name: "Logitech", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Logitech_logo.svg" },
+    { name: "Spotify", logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" }
   ];
 
   return (
@@ -46,7 +46,7 @@ export default function Blog() {
               From Our Blog
             </h2>
             <p className="text-gray-600">
-              Aliquam lacinia diam quis lacus euismod
+              Insights and tips from Sri Lanka's property market
             </p>
           </div>
 
@@ -143,11 +143,11 @@ export default function Blog() {
               </button>
               
               <a 
-                href="tel:920-851-8585" 
+                href="tel:+94771234567" 
                 className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full font-medium transition-colors duration-200 flex items-center justify-center"
               >
                 <Phone className="mr-2 w-4 h-4" />
-                920 851 8585
+                +94 77 123 4567
               </a>
             </div>
           </div>

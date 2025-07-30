@@ -11,56 +11,57 @@ import {
 
 const data = [
   {
-    id: "shadcn-ui",
-    title: "shadcn/ui: Building a Modern Component Library",
+    id: "colombo-land",
+    title: "Land for Sale in Colombo",
     description:
-      "Explore how shadcn/ui revolutionized React component libraries by providing a unique approach to component distribution and customization, making it easier for developers to build beautiful, accessible applications.",
-    href: "https://ui.shadcn.com",
+      "Prime residential land located in Colombo city, ideal for building your dream home or investment property.",
+    href: "https://example.com/colombo-land",
     image:
-      "https://images.unsplash.com/photo-1551250928-243dc937c49d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxMjN8fHx8fHwyfHwxNzIzODA2OTM5fA&ixlib=rb-4.0.3&q=80&w=1080",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyM3x8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Colombo skyline-ish
   },
   {
-    id: "tailwind",
-    title: "Tailwind CSS: The Utility-First Revolution",
+    id: "kandy-land",
+    title: "Land Plot Near Kandy Lake",
     description:
-      "Discover how Tailwind CSS transformed the way developers style their applications, offering a utility-first approach that speeds up development while maintaining complete design flexibility.",
-    href: "https://tailwindcss.com",
+      "Beautiful hillside land plot near Kandy Lake, perfect for peaceful living surrounded by nature.",
+    href: "https://example.com/kandy-land",
     image:
-      "https://images.unsplash.com/photo-1551250928-e4a05afaed1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxMjR8fHx8fHwyfHwxNzIzODA2OTM5fA&ixlib=rb-4.0.3&q=80&w=1080",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyNHx8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Hills/nature around Kandy
   },
   {
-    id: "astro",
-    title: "Astro: The All-in-One Web Framework",
+    id: "galle-land",
+    title: "Seaside Land in Galle",
     description:
-      "Learn how Astro's innovative 'Islands Architecture' and zero-JS-by-default approach is helping developers build faster websites while maintaining rich interactivity where needed.",
-    href: "https://astro.build",
+      "Coastal land available in Galle, ideal for vacation homes or boutique resorts with stunning ocean views.",
+    href: "https://example.com/galle-land",
     image:
-      "https://images.unsplash.com/photo-1536735561749-fc87494598cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxNzd8fHx8fHwyfHwxNzIzNjM0NDc0fA&ixlib=rb-4.0.3&q=80&w=1080",
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyNXx8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Galle coastline
   },
   {
-    id: "react",
-    title: "React: Pioneering Component-Based UI",
+    id: "nuwara-eliya-land",
+    title: "Cool Hill Country Land in Nuwara Eliya",
     description:
-      "See how React continues to shape modern web development with its component-based architecture, enabling developers to build complex user interfaces with reusable, maintainable code.",
-    href: "https://react.dev",
+      "Experience the cool climate and lush greenery with this land plot in the picturesque Nuwara Eliya region.",
+    href: "https://example.com/nuwara-eliya-land",
     image:
-      "https://images.unsplash.com/photo-1548324215-9133768e4094?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxMzF8fHx8fHwyfHwxNzIzNDM1MzA1fA&ixlib=rb-4.0.3&q=80&w=1080",
+      "https://images.unsplash.com/photo-1501761095870-5a9a9d31b54d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyNnx8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Hill country tea fields
   },
   {
-    id: "nextjs",
-    title: "Next.js: The React Framework for Production",
+    id: "negombo-land",
+    title: "Land Near Negombo Lagoon",
     description:
-      "Explore how Next.js has become the go-to framework for building full-stack React applications, offering features like server components, file-based routing, and automatic optimization.",
-    href: "https://nextjs.org",
+      "Strategically located land near Negombo lagoon, great for commercial or residential development.",
+    href: "https://example.com/negombo-land",
     image:
-      "https://images.unsplash.com/photo-1550070881-a5d71eda5800?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxMjV8fHx8fHwyfHwxNzIzNDM1Mjk4fA&ixlib=rb-4.0.3&q=80&w=1080",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwyN3x8fHx8fDJ8fDE3MjM4MDY5Mzlf&ixlib=rb-4.0.3&q=80&w=1080", // Lagoon or beach
   },
 ];
 
 const City = ({
-  title = "Case Studies",
-  description = "Discover how leading companies and developers are leveraging modern web technologies to build exceptional digital experiences. These case studies showcase real-world applications and success stories.",
-  items = data
+  title = "Sri Lankan Land Listings",
+  description =
+    "Explore prime land properties across Sri Lanka's top cities and regions. Find your perfect plot for residential or commercial development.",
+  items = data,
 }) => {
   const [carouselApi, setCarouselApi] = useState();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -89,9 +90,7 @@ const City = ({
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div className="flex flex-col gap-4">
-            <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl">
-              {title}
-            </h2>
+            <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl">{title}</h2>
             <p className="max-w-lg text-gray-600">{description}</p>
           </div>
           <div className="hidden shrink-0 gap-2 md:flex">
@@ -102,7 +101,8 @@ const City = ({
                 carouselApi?.scrollPrev();
               }}
               disabled={!canScrollPrev}
-              className="disabled:pointer-events-auto border">
+              className="disabled:pointer-events-auto border"
+            >
               <ArrowLeft className="size-5" />
             </Button>
             <Button
@@ -112,7 +112,8 @@ const City = ({
                 carouselApi?.scrollNext();
               }}
               disabled={!canScrollNext}
-              className="disabled:pointer-events-auto border">
+              className="disabled:pointer-events-auto border"
+            >
               <ArrowRight className="size-5" />
             </Button>
           </div>
@@ -130,25 +131,25 @@ const City = ({
                   dragFree: true,
                 },
               },
-            }}>
+            }}
+          >
             <CarouselContent className="-ml-4">
               {items.map((item) => (
-                <CarouselItem key={item.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                  <a href={item.href} className="group block">
+                <CarouselItem
+                  key={item.id}
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                >
+                  <a href={item.href} className="group block" target="_blank" rel="noreferrer">
                     <div className="group relative h-96 w-full overflow-hidden rounded-xl bg-gray-900">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105" 
+                        className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                       <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-white">
-                        <div className="mb-2 text-xl font-semibold line-clamp-2">
-                          {item.title}
-                        </div>
-                        <div className="mb-4 text-sm text-gray-200 line-clamp-2">
-                          {item.description}
-                        </div>
+                        <div className="mb-2 text-xl font-semibold line-clamp-2">{item.title}</div>
+                        <div className="mb-4 text-sm text-gray-200 line-clamp-2">{item.description}</div>
                         <div className="flex items-center text-sm font-medium">
                           Read more{" "}
                           <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
@@ -171,7 +172,7 @@ const City = ({
                 currentSlide === index ? "bg-gray-900" : "bg-gray-300"
               }`}
               onClick={() => carouselApi?.scrollTo(index)}
-              aria-label={`Go to slide ${index + 1}`} 
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>

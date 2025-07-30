@@ -1,12 +1,13 @@
+import { searchProperty } from "@/actions/property";
 import Details from "@/components/details";
 import Footer7 from "@/components/footer7";
 import Gallery from "@/components/galary";
-import { Navbar5 } from "@/components/navbar5";
+import PropertyNavbar, { Navbar5 } from "@/components/navbar5";
 import Similar from "@/components/similar";
 import React from "react";
 
 
-const property = {
+const properties = {
     id: 1,
     owner: "ravindu bandara",
     owner_type : "owner",
@@ -14,7 +15,7 @@ const property = {
     email : "ravindu22232@gmail.com",
     whatsapp : "0789840996",
     title: "10 Perches Bare Land for Sale in Kiribathgoda",
-    per_price: 250000.0,
+    perprice: 250000.0,
     totalPrice: 1200000.0,
     location: "Gonawala, Kiribathgoda",
     city: "Malabe",
@@ -32,21 +33,28 @@ const property = {
  
 };
 
-export default function Page({ params }) {
+export default async function Page({ params }) {
   const { id } = params;
+  const property = await searchProperty(id);
+
+  let result = property.data[0]
+  console.log("property", result);
 
 
-  console.log(id);
+
+  console.log("sdsdf",id);
   return (
     <div>
       <div className="fixed top-0 left-0 w-full z-50 shadow-xl bg-white">
-        <Navbar5 />
+         <PropertyNavbar />
       </div>
 
       <div className="pt-20">
-        <Gallery images={property.images} />
 
-        <Details property={property} />
+       
+        <Gallery images={result.images} />
+
+        <Details property={result} />
         <Similar />
         <Footer7 />
       </div>

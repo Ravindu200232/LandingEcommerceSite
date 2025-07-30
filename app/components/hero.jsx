@@ -7,7 +7,12 @@ export default function Hero() {
   const [activeTab, setActiveTab] = useState('All');
   const [searchInput, setSearchInput] = useState('');
 
-  const tabs = ['All', 'For Sale', 'For Rent'];
+  const tabs = ['All', 'For Sale', 'For Lease'];
+
+
+  const handleSearch = ()=>{
+    alert(`Searching for: ${searchInput}`);
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -24,13 +29,13 @@ export default function Hero() {
         {/* Header Text */}
         <div className="text-center mb-12 max-w-4xl">
           <p className="text-white text-sm font-medium mb-2 tracking-wider uppercase">
-            THE BEST WAY TO
+            EXPLORE LANDS IN SRI LANKA
           </p>
           <h1 className="text-white text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
-            Find Your Dream Home
+            Buy or Lease Land Anywhere in Sri Lanka
           </h1>
           <p className="text-white/80 text-lg md:text-xl">
-            We've more than 745,000 apartments, place & plot
+            Over 50,000 verified land listings island-wide — find your perfect property today.
           </p>
         </div>
 
@@ -64,17 +69,17 @@ export default function Hero() {
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  placeholder="Enter an address, neighborhood, city, or ZIP code"
+                  placeholder="Search by city, district, or province in Sri Lanka"
                   className="w-full pl-12 pr-4 py-4 text-slate-700 placeholder-slate-400 bg-slate-50 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-200 text-sm"
                 />
               </div>
-              
+
               <button className="flex items-center gap-2 px-4 py-4 text-slate-600 hover:text-slate-800 transition-colors">
                 <Settings size={18} />
                 <span className="text-sm font-medium">Advanced</span>
               </button>
-              
-              <button className="bg-coral-500 hover:bg-coral-600 text-white p-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl group">
+
+              <button className="bg-coral-500 hover:bg-coral-600 text-white p-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl group" onClick={handleSearch}>
                 <Search size={20} className="group-hover:scale-110 transition-transform" />
               </button>
             </div>
@@ -82,7 +87,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Floating elements for extra visual interest */}
+      {/* Floating Elements */}
       <div className="absolute top-1/4 left-10 w-2 h-2 bg-white/20 rounded-full animate-pulse"></div>
       <div className="absolute top-1/3 right-20 w-1 h-1 bg-white/30 rounded-full animate-pulse delay-1000"></div>
       <div className="absolute bottom-1/3 left-1/4 w-1.5 h-1.5 bg-white/25 rounded-full animate-pulse delay-500"></div>

@@ -17,10 +17,41 @@ import {
 } from "lucide-react";
 
 import { signUp } from "@/lib/auth-client";
+import { ToastContainer, toast } from 'react-toastify';
+import { redirect } from "next/navigation";
 
 export default function SignupForm() {
 
-  
+    
+
+
+  const validation = ({ firstName, lastName, email, password, rePassword }) => {
+    let value = true;
+    if (firstName === "") {
+      toast.error("First Name is Required")
+      value = false;
+    } else if (lastName === "") {
+      toast.error("LastName is required");
+      value = false;
+    } else if (email === "") {
+      toast.error("Email is required");
+      value = false;
+    } else if (password === "") {
+      toast.error("Password is required");
+      value = false;
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      toast.error("Email is Invalide");
+      value = false;
+    } else if (password.length < 8) {
+      toast.error("Password short please enter minimum 8 character");
+      value = false;
+    } else if (password !== rePassword) {
+      toast.error("not match re-password");
+      value = false;
+    }
+
+        return value
+  };
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
@@ -28,27 +59,31 @@ export default function SignupForm() {
     const formData = new FormData(event.currentTarget);
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
-    const name = firstName+ " " + lastName;
+    const name = firstName + " " + lastName;
     const email = formData.get("email");
     const password = formData.get("password");
     const rePassword = formData.get("rePassword");
 
     console.log(firstName, lastName, email, password, rePassword);
-        const {data,error} = await signUp.email(
-            {email,password,name:name,image: undefined},
-            {
-                onRequest:(ctx)=> {
-                    console.log("onRequest",ctx)
-                },
-                onSuccess: ()=>{
-                    redirect("/login");
-                },
-                onError: (ctx)=> {
-                    alert(ctx.error.message);
-                }
-            }
-        )
-    
+    if(validation({firstName,lastName,email,password,rePassword})){
+        const { data, error } = await signUp.email(
+      { email, password, name: name, image: undefined },
+      {
+        onRequest: (ctx) => {
+          console.log("onRequest", ctx);
+
+        },
+        onSuccess: () => {
+          toast.success("Registration Successfully")
+          redirect("/login");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+
+        },
+      }
+    );
+    }
   };
 
   return (

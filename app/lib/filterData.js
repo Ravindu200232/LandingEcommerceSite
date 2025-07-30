@@ -175,3 +175,25 @@ export const perchSizeRange = [
   },
 ];
 
+
+export const provinces = [
+    { value: "western", label: "Western Province" },
+    { value: "central", label: "Central Province" },
+    { value: "southern", label: "Southern Province" },
+    { value: "northern", label: "Northern Province" },
+    { value: "eastern", label: "Eastern Province" },
+    { value: "north_western", label: "North Western Province" },
+    { value: "north_central", label: "North Central Province" },
+    { value: "uva", label: "Uva Province" },
+    { value: "sabaragamuwa", label: "Sabaragamuwa Province" }
+  ];
+
+
+    export const propertyTypes = [
+    { value: "land", label: "Land" },
+    { value: "house", label: "House" },
+    { value: "agricultural", label: "Agricultural" },
+    { value: "commercial", label: "Commercial" },
+    { value: "apartment", label: "Apartment" }
+  ];
+

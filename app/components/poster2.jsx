@@ -3,17 +3,17 @@ import { ArrowRight, Check } from 'lucide-react';
 
 export default function Poster2() {
   const features = [
-    "Find excellent deals",
-    "Friendly host & Fast support", 
-    "List your own property"
+    "Discover best land & property deals in Sri Lanka",
+    "Trusted local agents & fast support",
+    "List your own property across Sri Lankan cities"
   ];
 
   const agents = [
-    { id: 1, image: "/img/agent1.jpg", name: "Agent 1" },
-    { id: 2, image: "/img/agent2.jpg", name: "Agent 2" },
-    { id: 3, image: "/img/agent3.jpg", name: "Agent 3" },
-    { id: 4, image: "/img/agent4.jpg", name: "Agent 4" },
-    { id: 5, image: "/img/agent5.jpg", name: "Agent 5" }
+    { id: 1, image: "/img/agent1.jpg", name: "Lakshan Perera" },
+    { id: 2, image: "/img/agent2.jpg", name: "Nadeesha Silva" },
+    { id: 3, image: "/img/agent3.jpg", name: "Anura Fernando" },
+    { id: 4, image: "/img/agent4.jpg", name: "Shanika Jayawardena" },
+    { id: 5, image: "/img/agent5.jpg", name: "Dilshan Kumara" }
   ];
 
   return (
@@ -24,15 +24,15 @@ export default function Poster2() {
           <div className="space-y-8">
             <div>
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                Let's Find The Right
+                Let's Find The Perfect
                 <br />
-                <span className="text-gray-800">Selling Option For You</span>
+                <span className="text-gray-800">Property or Land in Sri Lanka</span>
               </h1>
               
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                As the complexity of buildings to increase, the field
+                Explore premium land and real estate options across Colombo, Kandy,
                 <br />
-                of architecture
+                Galle, and beyond with trusted local experts.
               </p>
             </div>
 
@@ -91,7 +91,7 @@ export default function Poster2() {
               <div className="col-span-1">
                 <div className="bg-white p-4 rounded-2xl shadow-lg ">
                   <div className="text-sm font-semibold text-gray-900 mb-3">
-                    10k+ Exclusive Agents
+                    10k+ Trusted Sri Lankan Agents
                   </div>
                   <div className="flex items-center">
                     {/* Agent Avatars */}

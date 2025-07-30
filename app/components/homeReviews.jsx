@@ -6,21 +6,21 @@ export default function HomeReviews() {
     {
       id: 1,
       title: "Great Work",
-      review: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et",
+      review: "The team helped me find a beautiful home in Colombo quickly and with ease. Highly recommend their service!",
       rating: 5,
       author: {
-        name: "Ali Tufan",
-        role: "Marketing",
+        name: "Kasun Perera",
+        role: "Entrepreneur",
         avatar: "/api/placeholder/50/50"
       }
     },
     {
       id: 2,
       title: "Good Job",
-      review: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae",
+      review: "Professional and friendly agents who understood exactly what I was looking for in Kandy.",
       rating: 5,
       author: {
-        name: "Albert Flores",
+        name: "Nimali Silva",
         role: "Designer",
         avatar: "/api/placeholder/50/50"
       }
@@ -28,10 +28,10 @@ export default function HomeReviews() {
     {
       id: 3,
       title: "Perfect",
-      review: "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo",
+      review: "Excellent experience purchasing land in Galle. Transparent and trustworthy process.",
       rating: 5,
       author: {
-        name: "Robert Fox",
+        name: "Ruwan Jayasinghe",
         role: "Developer",
         avatar: "/api/placeholder/50/50"
       }
@@ -39,11 +39,11 @@ export default function HomeReviews() {
     {
       id: 4,
       title: "Work Hard",
-      review: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et",
+      review: "Great support throughout buying my first property in Negombo. Thank you!",
       rating: 5,
       author: {
-        name: "Mervin McKinney",
-        role: "Marketing",
+        name: "Anusha Fernando",
+        role: "Marketing Specialist",
         avatar: "/api/placeholder/50/50"
       }
     }
@@ -66,10 +66,10 @@ export default function HomeReviews() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            People Love Living with Homez
+            People Love Living with Homez Sri Lanka
           </h2>
           <p className="text-gray-600 text-lg">
-            Aliquam lacinia diam quis lacus euismod
+            Trusted by thousands across Colombo, Kandy, Galle, and beyond
           </p>
           
           {/* Pagination Dots */}

@@ -10,44 +10,41 @@ import {
 } from "@/components/ui/card";
 
 const Option = ({
-  heading = "Buy a property",
-  description = "Nullam sollicitudin blandit eros eu pretium.Nullam maximus ultricies auctor.",
-  buttonText = "View all articles",
-  buttonUrl = "https://shadcnblocks.com",
+  heading = "Explore Land Options",
+  description = "Find the perfect land solution—whether you're buying, selling, or renting. We offer a secure and streamlined experience tailored for you.",
+  buttonText = "View all listings",
+  buttonUrl = "https://govimithuru.lk",
 
   posts = [
     {
-      id: "post-1",
-      title: "Buy a property",
-      summary:
-        "Nullam sollicitudin blandit eros eu pretium.Nullam maximus ultricies auctor.",
-      label: "Tutorial",
-      author: "Sarah Chen",
-      published: "1 Jan 2024",
-      url: "https://shadcnblocks.com",
-      image: "/img/cat1.png",
+      id: "land-buy",
+      title: "Buy a Land",
+      summary: "Browse a wide selection of lands for sale in your preferred area with verified ownership and fair pricing.",
+      label: "Buy",
+      author: "Govimithuru.lk",
+      published: "1 Aug 2025",
+      url: "https://govimithuru.lk/buy-land",
+      image: "/img/land-buy.jpg",
     },
     {
-      id: "post-2",
-      title: "Building Accessible Web Applications",
-      summary:
-        "Nullam sollicitudin blandit eros eu pretium.Nullam maximus ultricies auctor.",
-      label: "Accessibility",
-      author: "Marcus Rodriguez",
-      published: "1 Jan 2024",
-      url: "https://shadcnblocks.com",
-            image: "/img/cat2.png",
+      id: "land-sell",
+      title: "Sell a Land",
+      summary: "List your land with us and reach genuine buyers across the country with ease and transparency.",
+      label: "Sell",
+      author: "Govimithuru.lk",
+      published: "1 Aug 2025",
+      url: "https://govimithuru.lk/sell-land",
+      image: "/img/land-sell.jpg",
     },
     {
-      id: "post-3",
-      title: "Modern Design Systems with Tailwind CSS",
-      summary:
-        "Nullam sollicitudin blandit eros eu pretium.Nullam maximus ultricies auctor.",
-      label: "Design Systems",
-      author: "Emma Thompson",
-      published: "1 Jan 2024",
-      url: "https://shadcnblocks.com",
-            image: "/img/cat3.png",
+      id: "land-rent",
+      title: "Rent a Land",
+      summary: "Find or list lands for short-term or long-term rental for farming, construction, or other needs.",
+      label: "Rent",
+      author: "Govimithuru.lk",
+      published: "1 Aug 2025",
+      url: "https://govimithuru.lk/rent-land",
+      image: "/img/land-rent.jpg",
     },
   ]
 }) => {
@@ -55,13 +52,10 @@ const Option = ({
     <section className="py-10">
       <div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
         <div className="text-center">
-          
-          <h2
-            className="mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl">
+          <h2 className="mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl">
             {heading}
           </h2>
-          <p
-            className="mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg">
+          <p className="mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg">
             {description}
           </p>
           <Button variant="link" className="w-full sm:w-auto" asChild>

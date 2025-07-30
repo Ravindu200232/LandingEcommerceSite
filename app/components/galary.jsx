@@ -15,7 +15,7 @@ const img = [
 export default function Galary({images}) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  console.log(images)
+  console.log("imgg",images)
   console.log(img)
   
 

@@ -18,11 +18,13 @@ import {
 } from 'lucide-react';
 
 export default function Details({property}) {
+
+  console.log("proper",property)
   const [isSaved, setIsSaved] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
   const [features,setfeatures] = useState(property.features)
-  console.log(features)
+  console.log("feature")
 
  
 
@@ -48,7 +50,7 @@ export default function Details({property}) {
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl lg:text-4xl font-bold text-green-600">
-                  {property.currency} {property.per_price}
+                  LKR {property.perPrice}
                 </span>
                 <span className="text-gray-600 text-lg">Per Perch</span>
                 <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium ml-2">
@@ -99,7 +101,7 @@ export default function Details({property}) {
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <div className="text-sm text-gray-600 mb-1">Availability</div>
-                  <div className="font-semibold text-green-600">{property.status}</div>
+                  <div className="font-semibold text-green-600">Available</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <div className="text-sm text-gray-600 mb-1">Offered for</div>
@@ -110,7 +112,7 @@ export default function Details({property}) {
               <div className="mt-6 pt-6 border-t">
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <div className="text-sm text-gray-600 mb-1">Shape of land</div>
-                  <div className="font-semibold text-gray-900">{property.shape}</div>
+                  <div className="font-semibold text-gray-900">{property.landShape}</div>
                 </div>
               </div>
             </div>
@@ -169,12 +171,12 @@ export default function Details({property}) {
                 </div>
                 <div className="bg-white rounded-lg p-4">
                   <div className="text-sm text-gray-600 mb-1">Price per Perch</div>
-                  <div className="text-2xl font-bold text-green-600">Rs. {property.per_price}</div>
+                  <div className="text-2xl font-bold text-green-600">Rs. {property.perPrice}</div>
                 </div>
                 <div className="bg-white rounded-lg p-4 md:col-span-2">
                   <div className="text-sm text-gray-600 mb-1">Total Price</div>
                   <div className="text-3xl font-bold text-green-600">Rs. {property.totalPrice}</div>
-                  <div className="text-sm text-gray-500 mt-1">Rs. {property.size} × Rs. {property.per_price}</div>
+                  <div className="text-sm text-gray-500 mt-1">Rs. {property.size} × Rs. {property.perPrice}</div>
                 </div>
               </div>
             </div>

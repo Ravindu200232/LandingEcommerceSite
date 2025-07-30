@@ -1,29 +1,88 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { 
-  Eye, 
-  EyeOff, 
-  Mail, 
-  Lock, 
-  Home, 
+import React, { useState } from "react";
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  Home,
   MapPin,
   Users,
   Shield,
   ChevronRight,
   Facebook,
   Chrome,
-  Apple
-} from 'lucide-react';
+  Apple,
+} from "lucide-react";
+import { toast } from "react-toastify";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const validation = () => {
+    let value = true;
+    if (email === "") {
+      toast.error("Email is required");
+      value = false;
+    } else if (password === "") {
+      toast.error("Password is required");
+      value = false;
+    }
+
+    return value;
+  };
+
+
+  const handleSubmit = async () => {
+    if (validation()) {
+      try {
+        const { data, error } = await signIn.email(
+          {
+            email,
+            password,
+            callbackURL: "/",
+            rememberMe: false,
+          },
+          {}
+        );
+        localStorage.setItem("token", data?.token || "");
+        localStorage.setItem("user", JSON.stringify(data?.user || {}));
+
+         // Set token (expires in 7 days)
+        document.cookie = `token=${data?.token || ""}; path=/; max-age=${
+          7 * 24 * 60 * 60
+        }`;
+
+        // Set user (serialized JSON, expires in 7 days)
+        document.cookie = `user=${encodeURIComponent(
+          JSON.stringify(data?.user?.id || {})
+        )}; path=/; max-age=${7 * 24 * 60 * 60}`;
+
+        
+
+        if (error) {
+          toast.error(error.message || "Sign-in failed");
+        } else {
+          toast.success("Sign-in successful!");
+          // You can optionally redirect manually here if needed
+          // router.push("/dashboard");
+        }
+      } catch (err) {
+        toast.error("An unexpected error occurred");
+        console.error(err);
+      }
+    } else {
+      toast.warn("Please fill all required fields correctly.");
+    }
   };
 
   return (
@@ -49,7 +108,9 @@ export default function LoginForm() {
             </div>
             <div>
               <h1 className="text-2xl font-bold">LandVista</h1>
-              <p className="text-sm text-white/80">Premium Property Solutions</p>
+              <p className="text-sm text-white/80">
+                Premium Property Solutions
+              </p>
             </div>
           </div>
 
@@ -61,8 +122,8 @@ export default function LoginForm() {
                 <span className="block text-green-300">Dream Land</span>
               </h2>
               <p className="text-lg text-white/90 leading-relaxed">
-                Discover premium properties and investment opportunities across Sri Lanka. 
-                Your perfect piece of land is just a click away.
+                Discover premium properties and investment opportunities across
+                Sri Lanka. Your perfect piece of land is just a click away.
               </p>
             </div>
 
@@ -74,17 +135,21 @@ export default function LoginForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Prime Locations</h3>
-                  <p className="text-sm text-white/70">Curated properties in the best areas</p>
+                  <p className="text-sm text-white/70">
+                    Curated properties in the best areas
+                  </p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
                   <Shield className="w-5 h-5 text-blue-300" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Verified Listings</h3>
-                  <p className="text-sm text-white/70">All properties are legally verified</p>
+                  <p className="text-sm text-white/70">
+                    All properties are legally verified
+                  </p>
                 </div>
               </div>
 
@@ -94,7 +159,9 @@ export default function LoginForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Expert Support</h3>
-                  <p className="text-sm text-white/70">Professional guidance throughout</p>
+                  <p className="text-sm text-white/70">
+                    Professional guidance throughout
+                  </p>
                 </div>
               </div>
             </div>
@@ -135,23 +202,31 @@ export default function LoginForm() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">LandVista</h1>
-              <p className="text-sm text-gray-600">Premium Property Solutions</p>
+              <p className="text-sm text-gray-600">
+                Premium Property Solutions
+              </p>
             </div>
           </div>
 
           {/* Welcome Message */}
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-            <p className="text-gray-600">Sign in to access your property dashboard</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              Welcome Back
+            </h2>
+            <p className="text-gray-600">
+              Sign in to access your property dashboard
+            </p>
           </div>
 
           {/* Social Login */}
           <div className="space-y-3 mb-6">
             <button className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors group">
               <Chrome className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
-              <span className="font-medium text-gray-700">Continue with Google</span>
+              <span className="font-medium text-gray-700">
+                Continue with Google
+              </span>
             </button>
-            
+
             <div className="grid grid-cols-2 gap-3">
               <button className="flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors group">
                 <Facebook className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform" />
@@ -170,7 +245,9 @@ export default function LoginForm() {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-gray-50 text-gray-500 rounded-full">Or continue with email</span>
+              <span className="px-4 bg-gray-50 text-gray-500 rounded-full">
+                Or continue with email
+              </span>
             </div>
           </div>
 
@@ -178,7 +255,10 @@ export default function LoginForm() {
           <div className="space-y-6">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -199,7 +279,10 @@ export default function LoginForm() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -209,7 +292,7 @@ export default function LoginForm() {
                 <input
                   id="password"
                   name="password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full pl-12 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white"
@@ -240,12 +323,18 @@ export default function LoginForm() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded transition-colors"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-gray-700"
+                >
                   Remember me
                 </label>
               </div>
               <div className="text-sm">
-                <a href="#" className="font-medium text-green-600 hover:text-green-500 transition-colors">
+                <a
+                  href="#"
+                  className="font-medium text-green-600 hover:text-green-500 transition-colors"
+                >
                   Forgot password?
                 </a>
               </div>
@@ -253,7 +342,8 @@ export default function LoginForm() {
 
             {/* Sign In Button */}
             <button
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               className="group relative w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Sign In
@@ -264,8 +354,11 @@ export default function LoginForm() {
           {/* Sign Up Link */}
           <div className="mt-8 text-center">
             <p className="text-gray-600">
-              Don't have an account?{' '}
-              <a href="#" className="font-medium text-green-600 hover:text-green-500 transition-colors">
+              Don't have an account?{" "}
+              <a
+                href="#"
+                className="font-medium text-green-600 hover:text-green-500 transition-colors"
+              >
                 Create your account
               </a>
             </p>
@@ -274,10 +367,14 @@ export default function LoginForm() {
           {/* Terms */}
           <div className="mt-6 text-center">
             <p className="text-xs text-gray-500">
-              By signing in, you agree to our{' '}
-              <a href="#" className="text-green-600 hover:underline">Terms of Service</a>
-              {' '}and{' '}
-              <a href="#" className="text-green-600 hover:underline">Privacy Policy</a>
+              By signing in, you agree to our{" "}
+              <a href="#" className="text-green-600 hover:underline">
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-green-600 hover:underline">
+                Privacy Policy
+              </a>
             </p>
           </div>
         </div>

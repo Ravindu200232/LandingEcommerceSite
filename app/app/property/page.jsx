@@ -1,8 +1,6 @@
-"use client";
-
 import Footer7 from "@/components/footer7";
-import { Navbar5 } from "@/components/navbar5";
-import React, { useState } from "react";
+import PropertyNavbar, { Navbar5 } from "@/components/navbar5";
+import React from "react";
 import Cart from "../../components/cart";
 import {
   perchPriceRange,
@@ -32,133 +30,37 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { getProperties } from "@/actions/property";
 
-const property = [
-  {
-    id: 1,
-    title: "10 Perches Bare Land for Sale in Kiribathgoda",
-    per_price: 250000.0,
-    totalPrice: 1200000.0,
-    location: "Gonawala, Kiribathgoda",
-    city: "Malabe",
-    district: "Kiribathgoda",
-    type: "Land",
-    size: 20,
-    description:
-      "This great value property, in a highly residential area, awaits its new owner.",
-    features: ["Highly residential area", "Few minutes to town", "Clear deed"],
-    images: ["/img/feature1.jpeg", "land1_2.jpg"],
-    listedDate: "2025-07-25",
-    status: "Available",
-  },
-  {
-    id: 2,
-    title: "Luxury Apartment for Sale in Colombo 07",
-    per_price: 1500000.0,
-    totalPrice: 30000000.0,
-    location: "Ward Place, Colombo 07",
-    city: "Colombo",
-    district: "Colombo",
-    type: "Apartment",
-    size: 15,
-    description:
-      "Modern luxury apartment in the heart of the city, near top schools and hospitals.",
-    features: ["24/7 Security", "Swimming Pool", "Covered Parking"],
-    images: ["apartment1.jpg", "apartment2.jpg"],
-    listedDate: "2025-07-20",
-    status: "Available",
-  },
-  {
-    id: 3,
-    title: "2-Story House for Sale in Kandy",
-    per_price: 500000.0,
-    totalPrice: 15000000.0,
-    location: "Peradeniya Road, Kandy",
-    city: "Kandy",
-    district: "Kandy",
-    type: "House",
-    size: 25,
-    description:
-      "Spacious family house with beautiful mountain views and garden space.",
-    features: ["Garage", "Garden", "Balcony View"],
-    images: ["house1.jpg", "house2.jpg"],
-    listedDate: "2025-07-18",
-    status: "Available",
-  },
-  {
-    id: 4,
-    title: "Commercial Land for Sale in Galle Town",
-    per_price: 800000.0,
-    totalPrice: 6400000.0,
-    location: "Main Street, Galle",
-    city: "Galle",
-    district: "Galle",
-    type: "Commercial",
-    size: 8,
-    description:
-      "Prime commercial land ideal for showroom or office space near city center.",
-    features: ["Main road access", "High visibility", "Ideal for business"],
-    images: ["comm1.jpg", "comm2.jpg"],
-    listedDate: "2025-07-15",
-    status: "Available",
-  },
-  {
-    id: 5,
-    title: "Agricultural Land for Sale in Anuradhapura",
-    per_price: 150000.0,
-    totalPrice: 3000000.0,
-    location: "Mihintale, Anuradhapura",
-    city: "Anuradhapura",
-    district: "Anuradhapura",
-    type: "Agriculture",
-    size: 20,
-    description:
-      "Fertile land suitable for paddy or vegetables, with irrigation access.",
-    features: ["Water source", "Fertile soil", "Easy access road"],
-    images: ["agri1.jpg", "agri2.jpg"],
-    listedDate: "2025-07-10",
-    status: "Available",
-  },
-];
 
-export default function Page() {
-  const [properties, setProperties] = useState(property);
 
-  const [ptype, setPtype] = useState("all");
-  const [lType, setLtype] = useState("all");
-  const [priceType, setPriceType] = useState("all");
-  const [perPrice, setperPrice] = useState("all");
-  const [preces, setpreces] = useState("all");
-  const [search, setSearch] = useState("");
+// Server component - gets search params from URL
+export default async function Page({ searchParams }) {
+  const itemsPerPage = 10;
+  
+  // Extract filter values from URL search params
+  const filterType = searchParams?.type || "all";
+  const filterLocation = searchParams?.location || "all";
+  const filterPrice = searchParams?.price || "all";
+  const FilterperPrice = searchParams?.perPrice || "all";
+  const filterSize = searchParams?.size || "all";
+  const search = searchParams?.search || "";
+  const currentPage = parseInt(searchParams?.page) || 1;
 
-  const [filterType, setFilterType] = useState("all");
-  const [filterLocation, setFilterLocation] = useState("all");
-  const [filterPrice, setFilterPrice] = useState("all");
-  const [FilterperPrice, setFilterperPrice] = useState("all");
-  const [filterSize, setFilterSize] = useState("all");
+  const property = await getProperties();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
-
-  const handleFilter = () => {
-    setFilterType(ptype);
-    setFilterLocation(lType);
-    setFilterPrice(priceType);
-    setFilterperPrice(perPrice);
-    setFilterSize(preces);
-  };
-
-  const filteredProperties = properties.filter((property) => {
-    //search bar filter
+  // Apply filters to properties
+  const filteredProperties = property.filter((property) => {
+    // Search bar filter
     const query = search.toLowerCase();
 
-    const matchSearch =
+    const matchSearch = !search || 
       property.title.toLowerCase().includes(query) ||
       property.city.toLowerCase().includes(query) ||
       property.description.toLowerCase().includes(query) ||
       property.location.toLowerCase().includes(query);
 
-    // property type
+    // Property type
     const propertyTypeMatch =
       filterType === "all" ||
       property.type.toLowerCase() === filterType.toLowerCase();
@@ -203,191 +105,218 @@ export default function Page() {
     startIndex + itemsPerPage
   );
 
-  const goToPage = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
+  // Helper function to build URL with updated params
+  const buildFilterUrl = (newParams) => {
+    const params = new URLSearchParams();
+    
+    // Keep existing params
+    if (filterType !== "all") params.set('type', filterType);
+    if (filterLocation !== "all") params.set('location', filterLocation);
+    if (filterPrice !== "all") params.set('price', filterPrice);
+    if (FilterperPrice !== "all") params.set('perPrice', FilterperPrice);
+    if (filterSize !== "all") params.set('size', filterSize);
+    if (search) params.set('search', search);
+    if (currentPage > 1) params.set('page', currentPage.toString());
+    
+    // Override with new params
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value && value !== "all" && value !== "") {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    });
+    
+    // Reset page when filters change (except when only changing page)
+    if (!newParams.page) {
+      params.delete('page');
     }
+    
+    return `?${params.toString()}`;
   };
 
   return (
-    <div className=" min-w-full h-full">
+    <div className="min-w-full h-full">
       <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
-        <Navbar5 />
+        <PropertyNavbar />
       </div>
 
       <div className="pt-20">
         <div className="w-full px-4 py-6 flex flex-col items-center">
           {/* Search Bar */}
           <div className="w-full max-w-4xl mb-4">
-            <div className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm px-3 py-2 space-x-2">
+            <form method="GET" className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm px-3 py-2 space-x-2">
               <Search className="h-5 w-5 text-gray-400" />
               <input
                 type="text"
+                name="search"
+                defaultValue={search}
                 placeholder="Search listings..."
-                onChange={(e) => setSearch(e.target.value)}
                 className="w-full h-10 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
               />
-            </div>
+              <input type="hidden" name="type" value={filterType} />
+              <input type="hidden" name="location" value={filterLocation} />
+              <input type="hidden" name="price" value={filterPrice} />
+              <input type="hidden" name="perPrice" value={FilterperPrice} />
+              <input type="hidden" name="size" value={filterSize} />
+              <Button type="submit" className="ml-2">Search</Button>
+            </form>
           </div>
 
           {/* Filters */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
-            {/* Property Type */}
-            <div>
-              <label
-                htmlFor="type"
-                className="block mb-1 font-medium text-gray-700"
-              >
-                Property Type
-              </label>
-              <select
-                id="type"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => {
-                  setPtype(e.target.value);
-                }}
-              >
-                <option value="" disabled>
-                  Select property type
-                </option>
-                <option value="all">All</option>
-                <option value="land">Land</option>
-                <option value="house">House</option>
-                <option value="agricultural">Agricultural</option>
-                <option value="commercial">Commercial</option>
-                <option value="apartment">Apartment</option>
-              </select>
-            </div>
+          <form method="GET" className="w-full max-w-6xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {/* Property Type */}
+              <div>
+                <label
+                  htmlFor="type"
+                  className="block mb-1 font-medium text-gray-700"
+                >
+                  Property Type
+                </label>
+                <select
+                  id="type"
+                  name="type"
+                  defaultValue={filterType}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">All</option>
+                  <option value="land">Land</option>
+                  <option value="house">House</option>
+                  <option value="agricultural">Agricultural</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="apartment">Apartment</option>
+                </select>
+              </div>
 
-            {/* Location */}
-            <div>
-              <label
-                htmlFor="location"
-                className="block mb-1 font-medium text-gray-700"
-              >
-                Location
-              </label>
-              <select
-                id="location"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => {
-                  setLtype(e.target.value);
-                }}
-              >
-                {uniqueCity.map((city) => (
-                  <option key={city.value} value={city.value}>
-                    {city.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+              {/* Location */}
+              <div>
+                <label
+                  htmlFor="location"
+                  className="block mb-1 font-medium text-gray-700"
+                >
+                  Location
+                </label>
+                <select
+                  id="location"
+                  name="location"
+                  defaultValue={filterLocation}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {uniqueCity.map((city) => (
+                    <option key={city.value} value={city.value}>
+                      {city.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* Price Range */}
-            <div>
-              <label
-                htmlFor="price"
-                className="block mb-1 font-medium text-gray-700"
-              >
-                Price Range
-              </label>
-              <select
-                id="price"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => {
-                  setPriceType(e.target.value);
-                }}
-              >
-                <option value="" disabled>
-                  Select price
-                </option>
-                {priceRange.map((price) => (
-                  <option key={price.value} value={price.value}>
-                    {price.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+              {/* Price Range */}
+              <div>
+                <label
+                  htmlFor="price"
+                  className="block mb-1 font-medium text-gray-700"
+                >
+                  Price Range
+                </label>
+                <select
+                  id="price"
+                  name="price"
+                  defaultValue={filterPrice}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">All Prices</option>
+                  {priceRange.map((price) => (
+                    <option key={price.value} value={price.value}>
+                      {price.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* perches price */}
-            <div>
-              <label
-                htmlFor="per_price"
-                className="block mb-1 font-medium text-gray-700"
-              >
-                Per Perches Price
-              </label>
-              <select
-                id="perchesPrice"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => {
-                  setperPrice(e.target.value);
-                }}
-              >
-                <option value="" disabled>
-                  Select price
-                </option>
-                {perchPriceRange.map((price) => (
-                  <option key={price.value} value={price.value}>
-                    {price.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+              {/* Per Perches Price */}
+              <div>
+                <label
+                  htmlFor="perPrice"
+                  className="block mb-1 font-medium text-gray-700"
+                >
+                  Per Perches Price
+                </label>
+                <select
+                  id="perPrice"
+                  name="perPrice"
+                  defaultValue={FilterperPrice}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">All Prices</option>
+                  {perchPriceRange.map((price) => (
+                    <option key={price.value} value={price.value}>
+                      {price.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* size */}
-            <div>
-              <label
-                htmlFor="size"
-                className="block mb-1 font-medium text-gray-700"
-              >
-                Size(Perches)
-              </label>
-              <select
-                id="size"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => {
-                  setpreces(e.target.value);
-                }}
-              >
-                <option value="" disabled>
-                  Select No Of per
-                </option>
-                {perchSizeRange.map((size) => (
-                  <option key={size.value} value={size.value}>
-                    {size.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+              {/* Size */}
+              <div>
+                <label
+                  htmlFor="size"
+                  className="block mb-1 font-medium text-gray-700"
+                >
+                  Size (Perches)
+                </label>
+                <select
+                  id="size"
+                  name="size"
+                  defaultValue={filterSize}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">All Sizes</option>
+                  {perchSizeRange.map((size) => (
+                    <option key={size.value} value={size.value}>
+                      {size.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* filter button */}
-            <div className="mt-8">
-              <Button onClick={handleFilter}>Filter</Button>
+              {/* Filter Button */}
+              <div className="mt-8">
+                <input type="hidden" name="search" value={search} />
+                <Button type="submit">Apply Filters</Button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
 
+        {/* Results */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 m-10">
           {paginatedItems.map((property) => (
-            <div key={property.id}>
+            <div key={property._id}>
               <Cart property={property} />
             </div>
           ))}
         </div>
 
+        {/* No results message */}
+        {filteredProperties.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No properties found matching your criteria.</p>
+            <a href="?" className="text-blue-500 hover:underline mt-2 inline-block">
+              Clear all filters
+            </a>
+          </div>
+        )}
+
+        {/* Pagination */}
         {totalPages > 1 && (
           <Pagination className="mt-6 flex justify-center">
             <PaginationContent className="flex items-center space-x-2">
               {/* Previous Button */}
               <PaginationItem>
                 <PaginationPrevious
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentPage > 1) {
-                      goToPage(currentPage - 1);
-                    }
-                  }}
+                  href={currentPage > 1 ? buildFilterUrl({ page: currentPage - 1 }) : '#'}
+                  className={currentPage <= 1 ? 'pointer-events-none opacity-50' : ''}
                 />
               </PaginationItem>
 
@@ -397,12 +326,8 @@ export default function Page() {
                 return (
                   <PaginationItem key={page}>
                     <PaginationLink
-                      href="#"
+                      href={buildFilterUrl({ page: page })}
                       isActive={currentPage === page}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        goToPage(page);
-                      }}
                     >
                       {page}
                     </PaginationLink>
@@ -413,13 +338,8 @@ export default function Page() {
               {/* Next Button */}
               <PaginationItem>
                 <PaginationNext
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentPage < totalPages) {
-                      goToPage(currentPage + 1);
-                    }
-                  }}
+                  href={currentPage < totalPages ? buildFilterUrl({ page: currentPage + 1 }) : '#'}
+                  className={currentPage >= totalPages ? 'pointer-events-none opacity-50' : ''}
                 />
               </PaginationItem>
             </PaginationContent>
