@@ -2,31 +2,14 @@
 
 import { db } from "@/lib/db";
 
-//get all propreties
+//get all
 export const getProperties = async () => {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    if (response.status === 200) {
-      return await response.json();
-    } else {
-      console.log("No properties found");
-      return undefined;
-    }
+    const properties = await db.collection("property").find({}).toArray();
+    return properties;
   } catch (error) {
-    console.log("Error fetching properties,", error);
-    return undefined;
+    console.error("Error fetching properties:", error);
+    return [];
   }
 };
 
