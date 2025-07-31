@@ -162,7 +162,14 @@ export default function Feature({ properties }) {
 
                     {/* Description below */}
                     <div className="text-sm font-semibold text-gray-900">
-                      {property.description}
+                      {property.description?.split(" ").slice(0, 15).join(" ")}
+                      ...
+                      <Link
+                        href={`/property/${property._id}`}
+                        className="text-blue-600 hover:underline ml-1"
+                      >
+                        see more
+                      </Link>
                     </div>
                   </div>
 

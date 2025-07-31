@@ -100,6 +100,7 @@ const PropertyNavbar = () => {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contactUs" },
+     { name: "MyPro", href: "/myproperty" },
   ];
 
   const propertyTypes = [
