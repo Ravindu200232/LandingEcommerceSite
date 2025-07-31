@@ -190,10 +190,10 @@ export const provinces = [
 
 
     export const propertyTypes = [
-    { value: "land", label: "Land" },
-    { value: "house", label: "House" },
-    { value: "agricultural", label: "Agricultural" },
-    { value: "commercial", label: "Commercial" },
-    { value: "apartment", label: "Apartment" }
+    { value: "residential", label: "Residential tea-estate" },
+    { value: "commercial", label: "Commercial Land" },
+    { value: "agricultural", label: "Agricultural Land" },
+    { value: "beachfront", label: "Beachfront Land" },
+    { value: "tea-estate", label: "Tea Estate Land" }
   ];
 

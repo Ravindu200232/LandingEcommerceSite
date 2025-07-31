@@ -18,38 +18,51 @@ import {
 } from "lucide-react";
 import { propertyTypes, provinces, uniqueCity } from "@/lib/filterData";
 import { toast } from "react-toastify";
-import { createProperty } from "@/actions/property";
+import { createProperty, searchProperty, updateProperty } from "@/actions/property";
 import { redirect } from "next/navigation";
 
-export default function PropertyAddForm({user}) {
-
-  const id = JSON.parse(user);
-  console.log("User ID:", id);
+export default function Update({property}) {
 
 
+  console.log("User ID taa:", property);
+
+  // Fetch property data by ID and store in state
+  const [propertyData, setPropertyData] = useState(null);
+
+ 
+
+   
+
+   
+   
 
   const access = false;
   const [formData, setFormData] = useState({
-    owner: "",
-    owner_type: "owner",
-    contact: "",
-    email: "",
-    whatsapp: "",
-    title: "",
-    province: "",
-    per_price: "",
-    totalPrice: "",
-    location: "",
-    city: "",
-    district: "",
-    type: "",
-    landShape: "",
-    offerdFor: "",
-    size: "",
-    description: "",
-    features: [],
-    images: [],
-    imageFiles: [],
+    owner: property.owner,
+    owner_type: property.type,
+    contact: property.contact,
+    email: property.email,
+    whatsapp: property.whatsapp,
+    title: property.title,
+    province: property.province,
+    per_price: property.perPrice,
+    totalPrice: property.totalPrice,
+    location: property.location,
+    city: property.city,
+    district: property.district,
+    type: property.type,
+    landShape: property.landShape,
+    offerdFor: property.offerdFor,
+    size: property.size,
+    description: property.description,
+    features: Array.isArray(property.features) ? property.features : [],
+    images: property.images || [],
+    imageFiles: property.images.map((img, index) => ({
+        id: index,
+        file: null, // Assuming you don't have file objects initially
+        url: img,
+        name: `image-${index + 1}.jpg`, // Placeholder name
+        })),
     access,
   });
 
@@ -126,39 +139,15 @@ export default function PropertyAddForm({user}) {
     const imageFiles = formData.imageFiles;
 
     if (validation()) {
-      console.log("Form Data:", formData.email);
+      console.log("Form Data:", formData);
 
-      const response = await createProperty({
-        user_id : id,
-        owner,
-        ownerType,
-        contact,
-        email,
-        whatsapp,
-        title,
-        province,
-        perPrice: parseFloat(perPrice),
-        totalPrice: parseFloat(totalPrice),
-        location,
-        city,
-        district,
-        type,
-        landShape,
-        offeredFor,
-        size: parseFloat(size),
-        description,
-        features: Array.isArray(features) ? features : [features],
-        images: Array.isArray(images) ? images : [images],
-        imageFiles: Array.isArray(imageFiles) ? imageFiles : [imageFiles],
-        createdAt: new Date().toISOString(),
-        popular : false,
-        updatedAt: new Date().toISOString(),
-      });
+      const response = await updateProperty(property._id,formData);
 
       
 
       if (response?.success) {
         toast.success(response.message);
+        redirect(`/myproperty`)
       } else {
         toast.success(response.message);
         
@@ -553,6 +542,7 @@ export default function PropertyAddForm({user}) {
                     name="features"
                     onChange={handleInputChange}
                     rows="3"
+                    value={formData.features.join(",")}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 hover:border-gray-400 resize-none"
                     placeholder="Highly residential area, Few minutes to town, Clear deed"
                   />
@@ -654,7 +644,7 @@ export default function PropertyAddForm({user}) {
               <button
                 type="button"
                 onClick={()=>{
-                    redirect(`/`)
+                    redirect(`/myproperty`)
                 }}
                 className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-medium"
               >

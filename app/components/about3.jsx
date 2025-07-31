@@ -41,11 +41,11 @@ const About3 = ({
   title = "About PropEstate Sri Lanka",
   description = "PropEstate Sri Lanka is dedicated to providing innovative real estate solutions that empower homebuyers and sellers across the island. We bring local expertise and global standards together.",
   mainImage = {
-    src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    src: "https://images.unsplash.com/photo-1541394995283-1c41007f098c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "Modern Sri Lanka cityscape",
   },
   secondaryImage = {
-    src: "https://images.unsplash.com/photo-1556228724-cf6714e2c49f?auto=format&fit=crop&w=600&q=80",
+    src: "https://kaarwan.s3.amazonaws.com/public/blog/media/2.jpeg",
     alt: "Traditional Sri Lankan architecture",
   },
   breakout = {

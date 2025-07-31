@@ -30,7 +30,7 @@ const cookieStore = cookies();
     
     <div>
         <div>
-            <PropertyAddForm/>
+            <PropertyAddForm user={user}/>
         </div>
     </div>
   )
