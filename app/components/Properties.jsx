@@ -74,7 +74,6 @@ export default function Properties({ properties }) {
               Discover Popular Properties
             </h2>
             <p className="text-gray-400">
-              Aliquam lacinia diam quis lacus euismod
             </p>
           </div>
 

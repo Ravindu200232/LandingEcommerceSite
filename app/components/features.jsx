@@ -101,7 +101,7 @@ export default function Feature({ properties }) {
               Discover Our Featured Listings
             </h2>
             <p className="text-gray-600">
-              Aliquam lacinia diam quis lacus euismod
+             
             </p>
           </div>
           <button className="flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors">
