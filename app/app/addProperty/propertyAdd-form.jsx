@@ -28,6 +28,7 @@ export default function PropertyAddForm({user}) {
 
 
 
+
   const access = false;
   const [formData, setFormData] = useState({
     owner: "",
@@ -159,6 +160,7 @@ export default function PropertyAddForm({user}) {
 
       if (response?.success) {
         toast.success(response.message);
+        redirect(`/`)
       } else {
         toast.success(response.message);
         
