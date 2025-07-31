@@ -78,9 +78,9 @@ export default function Hero() {
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
         }`}>
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-6 py-3 mb-8 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-sm border border-emerald-400/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-6 py-3 mt-10 mb-8 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-sm border border-emerald-400/30 rounded-full">
             <MapPin size={16} className="text-emerald-300 animate-pulse" />
-            <span className="text-emerald-100 text-sm font-medium tracking-wider uppercase">
+            <span className="text-emerald-100 text-sm font-medium tracking-wider  uppercase">
               Explore Lands in Sri Lanka
             </span>
             <Sparkles size={16} className="text-emerald-300 animate-pulse" />
@@ -120,7 +120,7 @@ export default function Hero() {
         </div>
 
         {/* CTA Button */}
-        <div className={`transform transition-all duration-1000 delay-500 ${
+        <div className={`transform transition-all duration-1000 delay-500 mb-30 ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
           <button
@@ -131,7 +131,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
             
             {/* Button Content */}
-            <div className="relative flex items-center gap-3">
+            <div className="relative flex  items-center gap-3">
               <span>See All Lands</span>
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
             </div>

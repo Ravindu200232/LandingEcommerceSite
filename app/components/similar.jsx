@@ -11,89 +11,35 @@ import {
   Filter,
   SortAsc,
   Grid3X3,
-  List
+  List,
 } from 'lucide-react';
+import { similarPro } from '@/actions/property';
+import Link from 'next/link';
 
-export default function Similar() {
+export default function Similar({property}) {
   const [savedProperties, setSavedProperties] = useState(new Set());
   const [viewMode, setViewMode] = useState('grid');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const properties = [
-    {
-      id: 1,
-      title: "Perch Land For Sale in Kudamaduwa",
-      location: "Kudamaduwa",
-      size: "13 P",
-      price: "1.5M",
-      pricePerPerch: "Per Perch",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop",
-      description: "Beautiful residential land in prime location",
-      type: "Residential",
-      features: ["Clear Title", "Road Access", "Electricity Available"]
-    },
-    {
-      id: 2,
-      title: "86 Perch Land for Sale in Kottawa Thalagala Road, 51600",
-      location: "Kottawa",
-      size: "86 P",
-      price: "1.5M",
-      pricePerPerch: "Per Perch",
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop",
-      description: "Large plot ideal for development projects",
-      type: "Commercial",
-      features: ["Main Road", "Survey Plan", "Water Connection"]
-    },
-    {
-      id: 3,
-      title: "Residential Land for Sale in Gatol Community - Athurugiriya",
-      location: "Athurugiriya",
-      size: "8.5 P",
-      price: "1.5M",
-      pricePerPerch: "Per Perch",
-      image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop",
-      description: "Premium residential community plot",
-      type: "Residential",
-      features: ["Gated Community", "Security", "Playground"]
-    },
-    {
-      id: 4,
-      title: "Land for Sale in 10 Perches - Ukuwela",
-      location: "Athurugiriya",
-      size: "10 P",
-      price: "1.5M",
-      pricePerPerch: "Per Perch",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-      description: "Scenic land with mountain views",
-      type: "Residential",
-      features: ["Scenic Views", "Quiet Area", "Easy Access"]
-    },
-    {
-      id: 5,
-      title: "Commercial Land for Sale in Homagama",
-      location: "Homagama",
-      size: "25 P",
-      price: "1.8M",
-      pricePerPerch: "Per Perch",
-      image: "https://images.unsplash.com/photo-1515041219749-89347f83291a?w=400&h=300&fit=crop",
-      description: "Prime commercial location with high visibility",
-      type: "Commercial",
-      features: ["Main Road Frontage", "Commercial Zone", "High Traffic"]
-    },
-    {
-      id: 6,
-      title: "Residential Plot in Malabe",
-      location: "Malabe",
-      size: "15 P",
-      price: "2.0M",
-      pricePerPerch: "Per Perch",
-      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop",
-      description: "Well-located residential plot near amenities",
-      type: "Residential",
-      features: ["Near Schools", "Public Transport", "Shopping Centers"]
-    }
-  ];
+  console.log(property);
 
+  const [properties, setProperties] = useState([]);
+
+  React.useEffect(() => {
+    async function fetchSimilar() {
+      console.log("Fetching similar properties for:", property.city, property.province);
+      if (property.city && property.province) {
+        const result = await similarPro(property.city, property.province);
+        setProperties(result.data || []);
+      }
+    }
+    fetchSimilar();
+  }, [property.city, property.province]);
+
+  console.log("Similar Properties:", properties);
+
+
+  
   const handleSave = (propertyId) => {
     const newSaved = new Set(savedProperties);
     if (newSaved.has(propertyId)) {
@@ -109,7 +55,7 @@ export default function Similar() {
       {/* Image Container */}
       <div className="relative overflow-hidden">
         <img
-          src={property.image}
+          src={property.images[0]}
           alt={property.title}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -199,10 +145,12 @@ export default function Similar() {
             </span>
             <span className="text-sm text-gray-500">{property.pricePerPerch}</span>
           </div>
+          <Link href={`/property/${property._id}`}>
           <button className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium">
             <Eye className="w-4 h-4" />
             View Details
           </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -336,8 +284,8 @@ export default function Similar() {
         }>
           {properties.map((property) => (
             viewMode === 'grid' 
-              ? <PropertyCard key={property.id} property={property} />
-              : <ListItem key={property.id} property={property} />
+              ? <PropertyCard key={property._id} property={property} />
+              : <ListItem key={property._id} property={property} />
           ))}
         </div>
 

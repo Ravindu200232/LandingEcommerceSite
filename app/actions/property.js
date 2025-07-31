@@ -188,3 +188,35 @@ export const updateProperty = async (id,Doc) => {
   }
 };
 
+
+
+export const similarPro = async (city,province) => {
+  try {
+    const property = await db
+      .collection("property")
+      .find({ city: city, province: province })
+      .toArray();
+
+    if (property && property.length > 0) {
+      return {
+        success: true,
+        message: "Property fetched successfully!",
+        data: property,
+      };
+    } else {
+      return {
+        success: false,
+        message: "No property found!",
+        data: [],
+      };
+    }
+  } catch (error) {
+    console.error("MongoDB fetch failed!", error);
+    return {
+      success: false,
+      message: "Error fetching property.",
+      data: [],
+    };
+  }
+};
+

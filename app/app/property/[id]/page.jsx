@@ -55,7 +55,7 @@ export default async function Page({ params }) {
         <Gallery images={result.images} />
 
         <Details property={result} />
-        <Similar />
+        <Similar property={result}/>
         <Footer7 />
       </div>
     </div>

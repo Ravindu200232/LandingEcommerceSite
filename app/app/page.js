@@ -25,7 +25,7 @@ export default async function  Home() {
       </div>
 
       {/* Main content with padding to offset navbar */}
-      <div className="pt-20">
+      <div className="">
         <Hero />
         <Gallery6 />
         <Option />

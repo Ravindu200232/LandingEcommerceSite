@@ -655,7 +655,7 @@ export default function Update({property}) {
                 onClick={handleSubmit}
                 className="px-8 py-3 bg-gradient-to-r from-blue-600 to-green-600 text-white rounded-lg hover:from-blue-700 hover:to-green-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                Publish Property
+                update Property
               </button>
             </div>
           </div>
