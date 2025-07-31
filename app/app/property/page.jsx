@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Footer7 from "@/components/footer7";
 import PropertyNavbar, { Navbar5 } from "@/components/navbar5";
 import React from "react";
