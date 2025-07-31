@@ -69,9 +69,13 @@ export default function Feature({ properties }) {
   // ];
 
   // Group properties into pages of 3
+  // Limit to maximum 9 properties
+  const limitedProperties = properties.slice(0, 9);
+
+  // Group limited properties into pages of 3
   const pages = [];
-  for (let i = 0; i < properties.length; i += 3) {
-    pages.push(properties.slice(i, i + 3));
+  for (let i = 0; i < limitedProperties.length; i += 3) {
+    pages.push(limitedProperties.slice(i, i + 3));
   }
 
   // Function to switch visible page (DOM manipulation)
