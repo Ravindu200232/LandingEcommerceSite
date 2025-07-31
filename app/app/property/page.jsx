@@ -6,6 +6,7 @@ import {
   perchPriceRange,
   perchSizeRange,
   priceRange,
+  propertyTypes,
   uniqueCity,
 } from "@/lib/filterData";
 import PropertyTypeSelector from "@/components/PropertyTypeSelector";
@@ -32,12 +33,10 @@ import {
 } from "@/components/ui/pagination";
 import { getProperties } from "@/actions/property";
 
-
-
 // Server component - gets search params from URL
 export default async function Page({ searchParams }) {
   const itemsPerPage = 10;
-  
+
   // Extract filter values from URL search params
   const filterType = searchParams?.type || "all";
   const filterLocation = searchParams?.location || "all";
@@ -54,7 +53,8 @@ export default async function Page({ searchParams }) {
     // Search bar filter
     const query = search.toLowerCase();
 
-    const matchSearch = !search || 
+    const matchSearch =
+      !search ||
       property.title.toLowerCase().includes(query) ||
       property.city.toLowerCase().includes(query) ||
       property.description.toLowerCase().includes(query) ||
@@ -108,16 +108,16 @@ export default async function Page({ searchParams }) {
   // Helper function to build URL with updated params
   const buildFilterUrl = (newParams) => {
     const params = new URLSearchParams();
-    
+
     // Keep existing params
-    if (filterType !== "all") params.set('type', filterType);
-    if (filterLocation !== "all") params.set('location', filterLocation);
-    if (filterPrice !== "all") params.set('price', filterPrice);
-    if (FilterperPrice !== "all") params.set('perPrice', FilterperPrice);
-    if (filterSize !== "all") params.set('size', filterSize);
-    if (search) params.set('search', search);
-    if (currentPage > 1) params.set('page', currentPage.toString());
-    
+    if (filterType !== "all") params.set("type", filterType);
+    if (filterLocation !== "all") params.set("location", filterLocation);
+    if (filterPrice !== "all") params.set("price", filterPrice);
+    if (FilterperPrice !== "all") params.set("perPrice", FilterperPrice);
+    if (filterSize !== "all") params.set("size", filterSize);
+    if (search) params.set("search", search);
+    if (currentPage > 1) params.set("page", currentPage.toString());
+
     // Override with new params
     Object.entries(newParams).forEach(([key, value]) => {
       if (value && value !== "all" && value !== "") {
@@ -126,12 +126,12 @@ export default async function Page({ searchParams }) {
         params.delete(key);
       }
     });
-    
+
     // Reset page when filters change (except when only changing page)
     if (!newParams.page) {
-      params.delete('page');
+      params.delete("page");
     }
-    
+
     return `?${params.toString()}`;
   };
 
@@ -145,7 +145,10 @@ export default async function Page({ searchParams }) {
         <div className="w-full px-4 py-6 flex flex-col items-center">
           {/* Search Bar */}
           <div className="w-full max-w-4xl mb-4">
-            <form method="GET" className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm px-3 py-2 space-x-2">
+            <form
+              method="GET"
+              className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm px-3 py-2 space-x-2"
+            >
               <Search className="h-5 w-5 text-gray-400" />
               <input
                 type="text"
@@ -159,7 +162,9 @@ export default async function Page({ searchParams }) {
               <input type="hidden" name="price" value={filterPrice} />
               <input type="hidden" name="perPrice" value={FilterperPrice} />
               <input type="hidden" name="size" value={filterSize} />
-              <Button type="submit" className="ml-2">Search</Button>
+              <Button type="submit" className="ml-2">
+                Search
+              </Button>
             </form>
           </div>
 
@@ -181,11 +186,11 @@ export default async function Page({ searchParams }) {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="all">All</option>
-                  <option value="land">Land</option>
-                  <option value="house">House</option>
-                  <option value="agricultural">Agricultural</option>
-                  <option value="commercial">Commercial</option>
-                  <option value="apartment">Apartment</option>
+                  {propertyTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -203,6 +208,7 @@ export default async function Page({ searchParams }) {
                   defaultValue={filterLocation}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
+                  
                   {uniqueCity.map((city) => (
                     <option key={city.value} value={city.value}>
                       {city.label}
@@ -301,8 +307,13 @@ export default async function Page({ searchParams }) {
         {/* No results message */}
         {filteredProperties.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No properties found matching your criteria.</p>
-            <a href="?" className="text-blue-500 hover:underline mt-2 inline-block">
+            <p className="text-gray-500 text-lg">
+              No properties found matching your criteria.
+            </p>
+            <a
+              href="?"
+              className="text-blue-500 hover:underline mt-2 inline-block"
+            >
               Clear all filters
             </a>
           </div>
@@ -315,8 +326,14 @@ export default async function Page({ searchParams }) {
               {/* Previous Button */}
               <PaginationItem>
                 <PaginationPrevious
-                  href={currentPage > 1 ? buildFilterUrl({ page: currentPage - 1 }) : '#'}
-                  className={currentPage <= 1 ? 'pointer-events-none opacity-50' : ''}
+                  href={
+                    currentPage > 1
+                      ? buildFilterUrl({ page: currentPage - 1 })
+                      : "#"
+                  }
+                  className={
+                    currentPage <= 1 ? "pointer-events-none opacity-50" : ""
+                  }
                 />
               </PaginationItem>
 
@@ -338,8 +355,16 @@ export default async function Page({ searchParams }) {
               {/* Next Button */}
               <PaginationItem>
                 <PaginationNext
-                  href={currentPage < totalPages ? buildFilterUrl({ page: currentPage + 1 }) : '#'}
-                  className={currentPage >= totalPages ? 'pointer-events-none opacity-50' : ''}
+                  href={
+                    currentPage < totalPages
+                      ? buildFilterUrl({ page: currentPage + 1 })
+                      : "#"
+                  }
+                  className={
+                    currentPage >= totalPages
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
                 />
               </PaginationItem>
             </PaginationContent>
