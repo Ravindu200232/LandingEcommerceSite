@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 //get all propreties
 export const getProperties = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/user`, {
+    const response = await fetch(`${process.env.API_BASE_URL}/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
