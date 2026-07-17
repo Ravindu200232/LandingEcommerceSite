@@ -1,0 +1,57 @@
+name: Deploy to AWS ECS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: production-landingecommercesite
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build and push immutable image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build --file app/Dockerfile --tag "$REGISTRY/$REPOSITORY:$IMAGE_TAG" app
+          docker push "$REGISTRY/$REPOSITORY:$IMAGE_TAG"
+          echo "IMAGE_URI=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> "$GITHUB_ENV"
+      - name: Deploy service stack
+        run: |
+          aws cloudformation deploy \
+            --template-file infra/service.yml \
+            --stack-name "${{ vars.PROJECT_SLUG }}-service" \
+            --parameter-overrides \
+              ProjectSlug="${{ vars.PROJECT_SLUG }}" \
+              ImageUri="$IMAGE_URI" \
+              AppPort="3000" \
+            --no-fail-on-empty-changeset
+      - name: Wait for ECS stability
+        run: |
+          aws ecs wait services-stable \
+            --cluster "${{ vars.PROJECT_SLUG }}-cluster" \
+            --services "${{ vars.PROJECT_SLUG }}-service"
+      - name: Smoke test
+        run: |
+          BASE_URL=$(aws cloudformation describe-stacks \
+            --stack-name "${{ vars.PROJECT_SLUG }}-bootstrap" \
+            --query "Stacks[0].Outputs[?OutputKey=='ApplicationUrl'].OutputValue" \
+            --output text)
+          curl --fail --retry 12 --retry-delay 10 "$BASE_URL/api/health"

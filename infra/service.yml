@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deployment Agent ECS service and immutable task definition
+
+Parameters:
+  ProjectSlug: {Type: String}
+  ImageUri: {Type: String}
+  AppPort: {Type: Number, Default: 3000}
+  DesiredCount: {Type: Number, Default: 1}
+
+Resources:
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub '${ProjectSlug}-task'
+      Cpu: '256'
+      Memory: '512'
+      NetworkMode: awsvpc
+      RequiresCompatibilities: [FARGATE]
+      ExecutionRoleArn:
+        Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-ExecutionRoleArn'}
+      TaskRoleArn:
+        Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-TaskRoleArn'}
+      ContainerDefinitions:
+        - Name: app
+          Image: !Ref ImageUri
+          Essential: true
+          PortMappings: [{ContainerPort: !Ref AppPort, Protocol: tcp}]
+          Environment:
+            - {Name: NODE_ENV, Value: production}
+            - {Name: PORT, Value: !Sub '${AppPort}'}
+          Secrets:
+            - Name: MONGODB_URI
+              ValueFrom:
+                Fn::Join:
+                  - ''
+                  - - Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-RuntimeSecretArn'}
+                    - ':MONGODB_URI::'
+            - Name: BETTER_AUTH_SECRET
+              ValueFrom:
+                Fn::Join:
+                  - ''
+                  - - Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-RuntimeSecretArn'}
+                    - ':BETTER_AUTH_SECRET::'
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-LogGroupName'}
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: app
+          HealthCheck:
+            Command: [CMD-SHELL, !Sub 'wget -qO- http://127.0.0.1:${AppPort}/api/health || exit 1']
+            Interval: 30
+            Timeout: 5
+            Retries: 3
+            StartPeriod: 30
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub '${ProjectSlug}-service'
+      Cluster:
+        Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-ClusterName'}
+      LaunchType: FARGATE
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref TaskDefinition
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 100
+        MaximumPercent: 200
+        DeploymentCircuitBreaker: {Enable: true, Rollback: true}
+      HealthCheckGracePeriodSeconds: 90
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-TaskSecurityGroup'}
+          Subnets:
+            Fn::Split:
+              - ','
+              - Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-PublicSubnets'}
+      LoadBalancers:
+        - ContainerName: app
+          ContainerPort: !Ref AppPort
+          TargetGroupArn:
+            Fn::ImportValue: {Fn::Sub: '${ProjectSlug}-TargetGroupArn'}
+
+Outputs:
+  ServiceName: {Value: !GetAtt Service.Name}
+  TaskDefinitionArn: {Value: !Ref TaskDefinition}

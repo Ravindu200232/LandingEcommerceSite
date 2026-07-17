@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - name: Install dependencies
+        run: |
+          # package manager is ready
+          npm ci
+      - name: Build application
+        env:
+          MONGODB_URI: mongodb://127.0.0.1:27017/deployment_agent_build
+        run: npm run build
+      - name: Dependency audit
+        if: ${{ always() && hashFiles('app/package-lock.json') != '' }}
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=high
+      - name: Validate container build
+        working-directory: .
+        run: docker build --file app/Dockerfile app

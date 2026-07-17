@@ -1,0 +1,12 @@
+{
+  "score": 80,
+  "categories": {
+    "docker": 15,
+    "cicd": 20,
+    "aws": 25,
+    "security": 20,
+    "monitoring": 0,
+    "api": 0
+  },
+  "phase": "review"
+}

@@ -1,0 +1,9 @@
+{
+  "ProjectSlug": "landingecommercesite",
+  "GitHubSubjects": [
+    "repo:owner/repository:ref:refs/heads/main",
+    "repo:owner@OWNER_ID/repository@REPOSITORY_ID:ref:refs/heads/main"
+  ],
+  "AppPort": 3000,
+  "ExistingOidcProviderArn": ""
+}
