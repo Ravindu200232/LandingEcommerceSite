@@ -176,7 +176,7 @@ Resources:
               - Effect: Allow
                 Action: ['ecr:BatchCheckLayerAvailability','ecr:CompleteLayerUpload','ecr:GetDownloadUrlForLayer','ecr:InitiateLayerUpload','ecr:PutImage','ecr:UploadLayerPart','ecr:BatchGetImage']
                 Resource: !GetAtt Repository.Arn
-              - {Effect: Allow, Action: ['cloudformation:CreateStack','cloudformation:UpdateStack','cloudformation:CreateChangeSet','cloudformation:ExecuteChangeSet','cloudformation:DeleteChangeSet','cloudformation:DescribeChangeSet','cloudformation:DescribeStacks','cloudformation:DescribeStackEvents','cloudformation:DescribeStackResources','cloudformation:GetTemplate','cloudformation:ValidateTemplate'], Resource: '*'}
+              - {Effect: Allow, Action: ['cloudformation:CreateStack','cloudformation:UpdateStack','cloudformation:CreateChangeSet','cloudformation:ExecuteChangeSet','cloudformation:DeleteChangeSet','cloudformation:DescribeChangeSet','cloudformation:DescribeStacks','cloudformation:DescribeStackEvents','cloudformation:DescribeStackResources','cloudformation:GetTemplate','cloudformation:GetTemplateSummary','cloudformation:ValidateTemplate'], Resource: '*'}
               - {Effect: Allow, Action: ['ecs:RegisterTaskDefinition','ecs:DeregisterTaskDefinition','ecs:CreateService','ecs:UpdateService','ecs:DeleteService','ecs:DescribeServices','ecs:DescribeTaskDefinition','ecs:ListTasks','ecs:DescribeTasks','ecs:TagResource','ecs:UntagResource','elasticloadbalancing:DescribeTargetHealth'], Resource: '*'}
               - Effect: Allow
                 Action: ['iam:PassRole']
